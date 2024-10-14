@@ -103,25 +103,34 @@ copier copy --answer-file smp_answers.yaml gh:nlesc/python-template path/to/dest
 ```
 
 :::::::::::::::::::::::::::::::::
+
+Note how you were asked a lot fewer questions this time! Part of this is simply
+filling in the information you already entered in the SMP. For the other
+questions you weren't asked, the SMP tool has already suggested which set of
+optional features best suit your project.
+
+Because of a limitation in how `copier` handles these answer files, you don't
+to review these choices when first creating your project. But luckily there is
+a way to review the choices and to add extra features if you want.
+
+## Challenge 3: Add more features to your project
+
+Use `copier`'s `update` functionality to add extra features to your project.
+
+:::::::::::::::::::::::: solution
+
+```bash
+cd path/to/destination  # copier update must run from within your project
+copier update
+```
+
+:::::::::::::::::::::::::::::::::
+
+That's all folks!
+
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Figures
 
-You can use standard markdown for static figures with the following syntax:
-
-`![optional caption that appears below the figure](figure url){alt='alt text for
-accessibility purposes'}`
-
-![You belong in The Carpentries!](https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.'}
-
-::::::::::::::::::::::::::::::::::::: callout
-
-Callout sections can highlight information.
-
-They are sometimes used to emphasise particularly important points
-but are also used in some lessons to present "asides": 
-content that is not central to the narrative of the lesson,
-e.g. by providing the answer to a commonly-asked question.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
