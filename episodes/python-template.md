@@ -46,32 +46,61 @@ associated with the lessons. They appear in the "Instructor View"
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::: challenge 
+Install [`copier`]:
 
-## Challenge 1: Can you do it?
-
-What is the output of this command?
-
-```r
-paste("This", "new", "lesson", "looks", "good")
+```bash
+python3 -m pip install --user pipx
+python3 -m pipx --ensurepath
+pipx install copier
 ```
 
-:::::::::::::::::::::::: solution 
+Now you can use `copier` as a standalone tool to create new projects.
 
-## Output
- 
-```output
-[1] "This new lesson looks good"
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 1: Use the NLeSC Python Template
+
+Create a new project based on the Python template by the Netherlands eScience Center:
+
+:::::::::::::::::::::::: solution
+
+```bash
+copier copy gh:nlesc/python-template path/to/destination
 ```
 
 :::::::::::::::::::::::::::::::::
 
 
-## Challenge 2: how do you nest solutions within challenge blocks?
+::::::::::::::::::::::::: callout
+
+Copier can create a project from a local folder and from a remote git
+repository URL such as [https://github.com/nlesc/python-template.git].
+The following shortcut URLs are also supported:
+
+- GitHub: `gh:namespace/project`
+- GitLab: `gl:namespace/project`
+
+:::::::::::::::::::::::::::::::::
+
+Notice how you are asked to answer a lot of basic information that you already
+filled in for the SMP.
+
+
+## Challenge 2: Reuse machine readable SMP tool output
+
+The SMP tool provides a machine readable `yaml` file with all relevant answers
+for creating a new project using this template. First remove the previous
+project to make sure everything stays clean:
+
+```bash
+rm -rf path/to/destination
+```
 
 :::::::::::::::::::::::: solution 
 
-You can add a line with at least three colons and a `solution` tag.
+```bash
+copier copy --answer-file smp_answers.yaml gh:nlesc/python-template path/to/destination
+```
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -97,7 +126,7 @@ e.g. by providing the answer to a commonly-asked question.
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use a template to implement best practices for you from the start
-- Create a new repository using `copier copy gh:nlesc/python-template destination`
+- Create a new repository using `copier copy gh:nlesc/python-template path/to/destination`
 - Re-use the information from your SMP with the additional
   `--answers-file smp_answers.yaml` argument
 - Add extra features to your project using `copier update`
@@ -106,3 +135,5 @@ e.g. by providing the answer to a commonly-asked question.
 
 [r-markdown]: https://rmarkdown.rstudio.com/
 [NLeSC Python Template]: https://github.com/NLeSC/python-template
+[https://github.com/nlesc/python-template.git]: https://github.com/NLeSC/python-template.git
+
