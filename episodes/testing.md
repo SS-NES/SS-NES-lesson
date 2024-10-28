@@ -31,4 +31,33 @@ exercises: 15
 In this episode we are going to take a look at a few different types of automated testing. We will also see how we can use code coverage the increase our confidence that everything still works when we make a change to the code. There is an assumed base of having worked through the material on [this website](https://coderefinery.github.io/testing/motivation/). We will also make use of the [python template](https://github.com/SS-NES/python-template) to get a standardized starting point.
 
 
+# 1. Create the testing setup.
+
+
+## use the SAD minimal template to get a correct setup
+
+## Add some basic tests
+
+
+
+# 2. Improve testing
+
+## Add code coverage
+
+## Add parameterized tests
+
+
+# 3. Testing a unit of software without having to instantiate the all the code
+
+
+# 4. Working with external systems during a test
+
+
+# 5 Performance testing of functions
+
+
+# 6. Smoke testing to see if your application is still doing its basic functionality
+
+
+# 7. Runtime testing
 
