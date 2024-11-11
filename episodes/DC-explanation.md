@@ -17,11 +17,19 @@ Figure
 ![Decision Tree Layout](https://private-user-images.githubusercontent.com/119609143/384929830-dd26f374-cda3-404d-ac50-90d1c3e7f876.svg)
 
 The reasoning behind the structure of the decision tree is to allow you to jump out of the process and into filling out the SMP as soon as possible. As you might notice from the figure above, the more people are involved in a project, the more complex the SMP is going to be.
-With the same reasoning in mind, the least amount of people need to interact with your software, the least amount of bureaucracy you need to perform on it. THis results in a shorter and more compact SMP.
+With the same reasoning in mind, the least amount of people need to interact with your software, the least amount of bureaucracy you need to perform on it. This results in a shorter and more compact SMP.
 
 
-Introduce the decision tree and explain why we have chosen this structure
-Funnel people to the relevant points for their project, while leaving out the points that are not (yet) relevant.
+The first question you'll encounter in the decision tree is whether your software is going to be public or not. Regardless of your answer, you will continue to the next question, but should your software be (or become) public, there will be questions regarding licensing and citation, as well as basic user documentation, added to the SMP.
+The next question is the first that lets you jump out of the Decision Tree and into filling in the SMP, should you choose no. If your software is designed and intended for one time use, then the SMP you need for it is going to be rather simple. Let's consider a software that is in fact not going to be public (no to the first question) and not going to be reused after its initial purpose (no to the second question).
+
+Introduce Case A
+
+Moving on from this simple case, we add complexity as the number of people involved or impacted by your software grows. If your software is going to be reused, then at least one person will have to work with it again: you yourself. Even if you are the only one who will work with this software in the future, it is still a good idea to have documentation help you pin down decisions you made and functions of the software. If other people will be using the software, documentation is even more relevant.
+
+
+The next question in the decision tree asks you if multiple users will be working with your software. This can vary between a small group of people you are in contact with or a larger group which you might not be able to provide support on yourself. 
+
 Introduce the three main questions of the decision tree.
 Multi-User
 Reuse
