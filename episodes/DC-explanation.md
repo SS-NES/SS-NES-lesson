@@ -14,7 +14,7 @@ exercises: 1
 After introducing the name of your project and its purpose, you will enter the part of the tool that allows you to identify the relevant questions in the Software Management Plan for your project. We have constructed a decision tree that will guide you towards the minimum requirements for your SMP.
 
 Figure
-![Decision Tree Layout]https://private-user-images.githubusercontent.com/119609143/384929830-dd26f374-cda3-404d-ac50-90d1c3e7f876.svg
+![Decision Tree Layout](https://private-user-images.githubusercontent.com/119609143/384929830-dd26f374-cda3-404d-ac50-90d1c3e7f876.svg)
 
 The reasoning behind the structure of the decision tree is to allow you to jump out of the process and into filling out the SMP as soon as possible. As you might notice from the figure above, the more people are involved in a project, the more complex the SMP is going to be.
 With the same reasoning in mind, the least amount of people need to interact with your software, the least amount of bureaucracy you need to perform on it. THis results in a shorter and more compact SMP.
