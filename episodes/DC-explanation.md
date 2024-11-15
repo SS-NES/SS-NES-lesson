@@ -47,28 +47,79 @@ Testing ensures that you have a way of checking that everything works as intende
 
 Finally, writing clean code with useful comments added inside it make it easier to follow what you were doing and why. This counts for yourself, but also for others. Another aspect of writing code by following conventions, is that your software is easier to read and understand if the format you use is widespread in the community.
 
- Let's consider a software that is in fact not going to be public (no to the first question) and not going to be reused after its initial purpose (no to the second question).
 
-Introduce Case A
+:::::::::::::::::::::::::::::::::::::: Question 3
 
-Moving on from this simple case, we add complexity as the number of people involved or impacted by your software grows. If your software is going to be reused, then at least one person will have to work with it again: you yourself. Even if you are the only one who will work with this software in the future, it is still a good idea to have documentation help you pin down decisions you made and functions of the software. If other people will be using the software, documentation is even more relevant.
+- Is your software going to multiple users working on it?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+The difference between the answer to this question and the answer to the previous one, is that for the software to be reused, you do not require people to work on the software itself. For this question, we intend to ask if you expect multiple other people to active modify or contribute to the software. 
+
+Should you answer "No" here, then the SMP will not contain more questions than the ones added with the previous question. Please take into account that if development is done by other people and not just you, the answer to this question is "Yes", even if you are the main user of the software.
+
+If you answered "Yes", then the complexity of your software increases just by the fact that more and more people are able to change and add to it. This means that the management needed to ensure that your software is working and manintained properly increases with the amount of people involved. More questions will be added to the SMP if this is the case.
+
+Having multiple users involved in your software means that topics such as the packaging of your software, as well as the maintenance of it become relevant. These questions will be added to the SMP document that you have to fill out on top of what was already selected for multiple users.
 
 
-The next question in the decision tree asks you if multiple users will be working with your software. This can vary between a small group of people you are in contact with or a larger group which you might not be able to provide support on yourself. 
+:::::::::::::::::::::::::::::::::::::: Question 4
 
-Introduce the three main questions of the decision tree.
-Multi-User
-Reuse
-Community
-Knowledge of the consequences of opening up the software to a wider use.
-What is the difference between multi-user and community?
-Knowledge of the consequences of reusing the software
-What is essential for others to reuse software not developed by them?
-When is documentation enough?
+- Is your software going to grow a community around it?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+This is the last question in the Decision Tree. Answering "Yes" here will mean that the entirety of the SMP will be selected for you to fill out. The difference between a community and multiple users working on your software is intended to be the difference between a group of people that you can be in contact with personally, and a group of people with whom you might not have personal contact.
+
+If you answer "No" here, you will simply exit the Decision Tree with all the questions selected in question 3. Please keep in mind that multiple users can evolve into a community over time, so some of the topics skipped in Question 3 might become relevant later on. Should this be the case, please make sure to revise your SMP to fit the new reality of your software.
+
+Should you answer "Yes" here, then you will add questions on the sustainability of your software, as well as the support you plan to provide to your users. Sustainability is important if a community grows around your software, because you might not be able to respond to changes happening to resources your software needs. Having a sustainability plan and contingencies in place early on will help you face sudden changes later. You don't need to have fool-proof plan yet, but already considering the issue will help you deal with it, should the occasion arise.
+
+Finally, setting up support in case you have a growing community will ensure that you can keep your software working for all kinds of users.
+
+
+
 Remarkable cases:
 N/N/N - One time use, simplest plan needed
 N/N/Y - One time use, but may need to be made public for verification purposes? Journal request?
 Y/Y/N - Closed community?
+
 Based on the information that you gathered from the decision tree, you can now understand the scope of a project and its potential impact.
+
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 1: Use the Decision Tree to estimate the impact of the software described below.
+
+
+```r
+Software Description...
+```
+
+:::::::::::::::::::::::: solution 
+ 
+```
+1) Yes 2) No 3) - 4) -
+```
+
+:::::::::::::::::::::::::::::::::
+
+
+## Challenge 2: And what does the Decision Tree look like for this other software?
+
+```r
+Software Description...
+```
+:::::::::::::::::::::::: solution 
+
+```
+1) Yes 2) Yes 3) Yes 4) No
+```
+
+:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+Add this last part to the pull request, not the .md file!!
 Decision tree is stored in the JSON file, not the DOCX or the Cookiecutter file.
 Should the “trainer” ask the researcher for decision tree information as well when checking SMP, if SMP is generated with our tool?
