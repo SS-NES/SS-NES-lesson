@@ -96,8 +96,3 @@ As a result of an internal project, a software has been developed to track and p
 ```
 
 :::::::::::::::::::::::::::::::::
-
-
-Add this last part to the pull request, not the .md file!!
-Decision tree is stored in the JSON file, not the DOCX or the Cookiecutter file.
-Should the “trainer” ask the researcher for decision tree information as well when checking SMP, if SMP is generated with our tool?
