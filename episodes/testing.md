@@ -160,6 +160,25 @@ def test_download_latest_data_konrad3d():
 
 # 5 Performance testing of functions
 
+There are moments that the performance of you function might matter a lot. You might not want a single function to ever execute slower than x seconds. To test this you could write tests for the specific functions that should stay fast. How this works is that you run a function x amount of times and the max duration of the function should not be higher than the x seconds. A useful library to help with these types of test in python is [pytest-benchmark](https://pytest-benchmark.readthedocs.io/en/stable/pedantic.html).
+
+```python
+import time
+def function_to_test(duration=1):
+    time.sleep(duration)
+    return 123
+
+def test_my_function(benchmark):
+    allowed_speed = 1.000002
+    result = benchmark.pedantic(function_to_test, iterations=5)
+    assert benchmark.stats.stats.max < allowed_speed
+
+    assert result == 123
+```
+
+This code can be run with the following command: `pytest -v -s the file_this_is_in.py::test_my_function`. It will run the code 5 times and none of the calls is allowed to be slower than the allowed_speed.
+
+When you write API's you can also have performance requirements. For this another type of tool is used. One of the most used tools for this in python is locust. FOr more information about this tool look you can look at [their documentation](https://docs.locust.io/en/stable/what-is-locust.html).
 
 # 6. Smoke testing to see if your application is still doing its basic functionality
 
