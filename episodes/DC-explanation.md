@@ -59,18 +59,25 @@ Finally, setting up support in case you have a growing community will ensure tha
 
 ## Exercises: 
 
-Based on the information that you gathered from the decision tree, you can now understand the scope of a project and its potential impact.
+Based on the information that you gathered from the decision tree, you can now understand the scope of a project and its potential impact. To help you test out how the Decision Tree works in practice, we have two examples of software here, for which an SMP needs to be filled in. Please read the examples and think about which questions can be answered in the positive in the Decision Tree.
+
+N.B.: If you have your own example software to do this exercise with, please feel free to use it.
 
 ## Challenge 1: Use the Decision Tree to estimate the impact of the software described below.
 
 
 ```r
-Software Description...
+The software in question are scripts run to extract data from an astronomical image. The scripts identify areas where light/signal is present in the image and extract the measured light spectrum of the pixels for which the signal-to-noise is above a value of 5. The scripts also provide the location of the brightest pixel per object and create easy to read ASCII files to plot the spectrum of the various light sources.
+
+The author of the scripts has decided to store them on a GitLab instance present at their instiute. The GitLab repository is referenced in their paper, should someone want to verify the results obtained with the scripts. These scripts are based on known methods to extract data from an astronomical image. 
 ```
 
 :::::::::::::::::::::::: solution 
  
 ```
+Either: 
+1) Yes 2) Yes 3) No 4) -
+Or:
 1) Yes 2) No 3) - 4) -
 ```
 
@@ -80,12 +87,12 @@ Software Description...
 ## Challenge 2: And what does the Decision Tree look like for this other software?
 
 ```r
-Software Description...
+As a result of an internal project, a software has been developed to track and predict convective cells in the atmosphere (i.e. Thunderstorms). A team of software engineers and other experts is working on this software to expand and better its functionality. The project itself is still ongoing and the software has yet to be published in a repository. Plans for its publication will eventually be discussed at the end of the project.
 ```
 :::::::::::::::::::::::: solution 
 
 ```
-1) Yes 2) Yes 3) Yes 4) No
+1) No 2) Yes 3) Yes 4) No
 ```
 
 :::::::::::::::::::::::::::::::::
