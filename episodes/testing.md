@@ -107,7 +107,56 @@ def test_function_under_test():
 
 # 4. Working with external systems during a test
 
+When writing code you do not always have the data on your machine. Sometimes you need to download data over http. For this a lot of the time people use the requests library (when you have async code aiohttp is a nice alternative). For your test however you don't want to be dependent on the network, because this is unreliable and can have your tests sometimes fail for no reason. One way is to split the http call inside another method and use a fake response when testing that method. The following code calls the german weather opendata platform to get thunderstorm data. The page gets a lot of updates in the data but the format stay's the same. The the actual api calls can then be testing inside an integration test and also look at the error handling.
 
+```python
+import requests
+from bs4 import BeautifulSoup
+from unittest.mock import patch
+
+def get_konrad3d_data(url):
+    response = requests.get(url)
+    return response.text
+
+def extract_latest_file(overview_page):
+    soup = BeautifulSoup(overview_page, features="html.parser")
+    urls = soup.find_all('a')
+    latest_file = urls[-1].get('href')
+    return latest_file
+
+def get_latest_file_konrad3d():
+    url = "https://opendata.dwd.de/weather/radar/konrad3d/"
+    overview_page = get_konrad3d_data(url)
+    latest_file = extract_latest_file(overview_page)
+    return latest_file
+
+data = '<html><head><title>Index of /weather/radar/konrad3d/</title></head><body><h1>Index of /weather/radar/konrad3d/</h1><hr><pre><a href="../">../</a><a href="KONRAD3D_20241116T093000.xml">KONRAD3D_20241116T093000.xml</a>                       16-Nov-2024 09:34                3895<a href="KONRAD3D_20241118T092500.xml">KONRAD3D_20241118T092500.xml</a>                       18-Nov-2024 09:30                3938</pre><hr></body></html>'
+
+def test_download_latest_data_konrad3d():
+    with patch("faketest.get_konrad3d_data", return_value=data):
+        result = get_latest_file_konrad3d()
+    expected = "KONRAD3D_20241118T092500.xml"
+    assert result == expected
+```
+
+Another way to not do these API calls is by using the [requests_mock library](https://pypi.org/project/requests-mock/) to mock requests API calls. This makes you dependent on another library and still does not show you if things work in reality. It's being used by a lot of people, but personally I prefer fewer dependencies and write integration tests for the integration with external systems.  When you mock this it can give you a false sense of security like happened with the Crowdstrike outage in their testing. If you want to use this an example can be found bellow.
+
+```python
+import requests
+import requests_mock
+
+def get_konrad3d_data(url):
+    response = requests.get(url)
+    return response.text
+
+def test_download_latest_data_konrad3d():
+    data = '<html><head><title>Index of /weather/radar/konrad3d/</title></head><body><h1>Index of /weather/radar/konrad3d/</h1><hr><pre><a href="../">../</a><a href="KONRAD3D_20241116T093000.xml">KONRAD3D_20241116T093000.xml</a>                       16-Nov-2024 09:34                3895<a href="KONRAD3D_20241118T092500.xml">KONRAD3D_20241118T092500.xml</a>                       18-Nov-2024 09:30                3938</pre><hr></body></html>'
+    url = 'https://opendata.dwd.de/weather/radar/konrad3d/'
+    with requests_mock.Mocker() as m:
+        m.get(url, text=data)
+        result = get_konrad3d_data(url)
+    assert result == data
+```
 
 # 5 Performance testing of functions
 
