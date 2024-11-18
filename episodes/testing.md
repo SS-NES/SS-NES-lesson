@@ -211,5 +211,13 @@ def give_the_user_observation_data():
         
     if is_allowed:
         return get_observation_data()
-
 ```
+
+# 8. Closing words
+
+In the previous parts we have looked at quite a few different types of test with examples. Also some ways on making the tests more reusable and improving the quality. We would like to end with giving a few more possible resources where you could find information about different types of tests or testing tools:
+
+- [pytest and all types of integrations with it](https://pytest-with-eric.com/)
+- [the turing way](https://book.the-turing-way.org/reproducible-research/testing)
+- [Behaviour driven development with Gherkin syntax](https://behave.readthedocs.io/en/latest/tutorial/)
+- [testing pyramid vs honeycomb testing](https://engineering.atspotify.com/2018/01/testing-of-microservices/)
