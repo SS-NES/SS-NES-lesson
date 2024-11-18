@@ -74,10 +74,39 @@ def test_get_english_headline(onset: str, phenomenon: str, expected: str) -> Non
 
 As you can see even the expected result is now an input of the test. We can use the ids parameter to give a test a name. With this name you can also run the test for only one of the ids.
 
+
 # 3. Testing a unit of software without having to instantiate the all the code
 
+Sometimes it happens that you want to test function but in it a lot of complex objects are used that also need other objects. One way to deal with this is to add those complex objects as input to the function. You can that use this mock to prevent you having to create all those objects yourself.
+In the code bellow we see the complex class being mocked and then given an implementation for when the method is called. This way we don't need to create input_one and input_two with all of there possible inputs.
+
+```python
+from unittest.mock import MagicMock
+
+class Complex:
+    
+    def __init__(self, input_one, input_two):
+        self.input_one = input_one
+        self.input_two = input_two
+    
+    def execute(self):
+        "do complex things"
+        pass
+    
+def function_under_test(my_complex_object_with_multiple_inputs):
+    return my_complex_object_with_multiple_inputs.execute()
+
+def test_function_under_test():
+    inputs = MagicMock()
+    inputs.execute = MagicMock(return_value=3)
+    result = function_under_test(inputs)
+    expected = 3
+    assert result == expected
+    assert inputs.execute.call_count == 1
+```
 
 # 4. Working with external systems during a test
+
 
 
 # 5 Performance testing of functions
