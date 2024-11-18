@@ -4,14 +4,9 @@ teaching: 10
 exercises: 1
 ---
 
+## Why did we introduce a decision tree at the beginning of our questionnaire?
 
-:::::::::::::::::::::::::::::::::::::: questions 
-
-- Why did we introduce a decision tree at the beginning of our questionnaire?
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-After introducing the name of your project and its purpose, you will enter the part of the tool that allows you to identify the relevant questions in the Software Management Plan for your project. We have constructed a decision tree that will guide you towards the minimum requirements for your SMP.
+Part of the challenge in filling out a Software Management Plan (SMP) is to understand and define which points in the SMP are important, or even relevant, for your software. Depending on its scope and the impact you foresee it having, your software might need more attention in some areas of Software Management and less in others. We have decided to introduce a Decision Tree in our online questionnaire to help you define what is relevant in the Plan by answering at most four simple questions. And so, after introducing the name of your project and its purpose, you will enter the Decision Tree part of the tool. The figure below shows how the decision tree works:
 
 Figure
 ![Decision Tree Layout](../img/Decision_Tree_graphic.svg)
