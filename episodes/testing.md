@@ -48,6 +48,31 @@ What is code coverage? Code coverage is the percentage of the research / product
 
 ## Add parameterized tests
 
+When writing tests it sometimes happens that you want a lot of tests for the same function. You could write a lot of test functions with the same setup and when calling the function under test some different parameters. A cleaner way where you have to maintain less code afterwards to do this is by using paramterized tests. With this you add the different parameters as inputs to you test function. An example of this looks like this:
+
+```python
+@pytest.mark.parametrize(
+    ("onset", "phenomenon", "expected"),
+    [
+        (
+            "2024-12-09T11:31:14Z",
+            "snow-ice",
+            "Monday 9 December: chance of snow/road icing",
+        ),
+        (
+            "2025-01-04T00:00:00Z",
+            "low-temperature",
+            "Saturday 4 January: chance of cold",
+        ),
+    ],
+    ids=["special_case", "normal_case"],
+)
+def test_get_english_headline(onset: str, phenomenon: str, expected: str) -> None:
+    """test generation of english headline"""
+    assert _get_english_headline({"onset": onset, "phenomenon": phenomenon}) == expected
+```
+
+As you can see even the expected result is now an input of the test. We can use the ids parameter to give a test a name. With this name you can also run the test for only one of the ids.
 
 # 3. Testing a unit of software without having to instantiate the all the code
 
