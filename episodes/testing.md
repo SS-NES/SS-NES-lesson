@@ -44,6 +44,8 @@ In this episode we are going to take a look at a few different types of automate
 
 ## Add code coverage
 
+What is code coverage? Code coverage is the percentage of the research / production code you have written that is covered by unittests. If you have a very high percentage then when you make a change in the code, and it breaks the chances of it being caught before showing it to users is very high. If you have a low percentage the chances of finding these bugs are low, or you have to do a lot of manual testing.  When working with python and pytest there are packages to easily get the test coverage of your application. The one used most is [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/config.html) .
+
 ## Add parameterized tests
 
 
