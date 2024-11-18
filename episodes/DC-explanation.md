@@ -19,11 +19,8 @@ Figure
 The reasoning behind the structure of the decision tree is to allow you to jump out of the process and into filling out the SMP as soon as possible. As you might notice from the figure above, the more people are involved in a project, the more complex the SMP is going to be.
 With the same reasoning in mind, the least amount of people need to interact with your software, the least amount of bureaucracy you need to perform on it. This results in a shorter and more compact SMP.
 
-:::::::::::::::::::::::::::::::::::::: Question 1
+## Question 1: Is your software going to be publically accessible?
 
-- Is your software going to be publically accessible?
-
-::::::::::::::::::::::::::::::::::::::::::::::::
 
 The first question you'll encounter in the decision tree is whether your software is going to be public or not. This question does not send you out of the decision tree and into the SMP document yet. Whether you choose yes or not, you will be forwarded to the next decision tree question.
 
@@ -31,11 +28,7 @@ What this question determines, however, is whether you will need to worry about 
 
 If you answer "No", then only the purpose of your software and a risk analysis question will be taken to the document. As mentioned before, selecting "No" here will not result in you exiting the decision tree.
 
-:::::::::::::::::::::::::::::::::::::: Question 2
-
-- Is your software going to be reused after its initial purpose?
-
-::::::::::::::::::::::::::::::::::::::::::::::::
+## Question 2: Is your software going to be reused after its initial purpose?
 
 This question is the first that lets you jump out of the Decision Tree and into filling in the SMP, should you choose "No". This is the case if your software is designed and intended for one time use. The SMP you need for it is going to be rather simple, since you do not need to maintain or expand the software. In general, the amount of people that are going to interact with your software is going estimated to be rather small. Especially if your software is not going to be public.
 
@@ -48,11 +41,7 @@ Testing ensures that you have a way of checking that everything works as intende
 Finally, writing clean code with useful comments added inside it make it easier to follow what you were doing and why. This counts for yourself, but also for others. Another aspect of writing code by following conventions, is that your software is easier to read and understand if the format you use is widespread in the community.
 
 
-:::::::::::::::::::::::::::::::::::::: Question 3
-
-- Is your software going to multiple users working on it?
-
-::::::::::::::::::::::::::::::::::::::::::::::::
+## Question 3: Is your software going to multiple users working on it?
 
 The difference between the answer to this question and the answer to the previous one, is that for the software to be reused, you do not require people to work on the software itself. For this question, we intend to ask if you expect multiple other people to active modify or contribute to the software. 
 
@@ -63,11 +52,7 @@ If you answered "Yes", then the complexity of your software increases just by th
 Having multiple users involved in your software means that topics such as the packaging of your software, as well as the maintenance of it become relevant. These questions will be added to the SMP document that you have to fill out on top of what was already selected for multiple users.
 
 
-:::::::::::::::::::::::::::::::::::::: Question 4
-
-- Is your software going to grow a community around it?
-
-::::::::::::::::::::::::::::::::::::::::::::::::
+## Question 4: Is your software going to grow a community around it?
 
 This is the last question in the Decision Tree. Answering "Yes" here will mean that the entirety of the SMP will be selected for you to fill out. The difference between a community and multiple users working on your software is intended to be the difference between a group of people that you can be in contact with personally, and a group of people with whom you might not have personal contact.
 
@@ -77,17 +62,9 @@ Should you answer "Yes" here, then you will add questions on the sustainability 
 
 Finally, setting up support in case you have a growing community will ensure that you can keep your software working for all kinds of users.
 
-
-
-Remarkable cases:
-N/N/N - One time use, simplest plan needed
-N/N/Y - One time use, but may need to be made public for verification purposes? Journal request?
-Y/Y/N - Closed community?
+## Exercises: 
 
 Based on the information that you gathered from the decision tree, you can now understand the scope of a project and its potential impact.
-
-
-::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Challenge 1: Use the Decision Tree to estimate the impact of the software described below.
 
@@ -117,7 +94,6 @@ Software Description...
 ```
 
 :::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 Add this last part to the pull request, not the .md file!!
