@@ -182,6 +182,7 @@ When you write API's you can also have performance requirements. For this anothe
 
 # 6. Smoke testing to see if your application is still doing its basic functionality
 
+There are moments that you want to start an application but the application has some prerequisites it needs to have before you can say that it's good and allowed to run. For this you can use a smoketests. For example when you have an application that when a user calls it reads configurations files from a file system the check could be if the files exist at the correct location and the format is as expected. Maybe someone manually moved the files it this could break the whole system. So when the files are not there, there is smoke and thus if it's production we could get a fire.
 
 # 7. Runtime testing
 
