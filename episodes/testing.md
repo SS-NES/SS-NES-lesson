@@ -186,3 +186,30 @@ There are moments that you want to start an application but the application has 
 
 # 7. Runtime testing
 
+When software is in production and you introduce a new path inside the code you might want to run it for a while without actually implementing the behaviour inside that code path. And example for this is that when we implemented an extra validation for our public dataplatform we first added the validation where we allowed everything like before. But we executed the new logic and logged all unexpected things that happened. This gave us a lot of information about what would happen when we would turn the feature on for real. One important thing we found out that inside our network some http requests would only reach their destination after 10+ seconds. The application would already have given the users an error and that's not what we wanted. Because of this information we could add a solution that when we eventually brought our check live no users got an error.
+
+An example of a check like this can be found bellow.
+
+```python
+def my_new_validation_logic_to_external_api():
+    print("do an external api call")
+    return True
+
+def get_observation_data():
+    return "observation data"
+
+def give_the_user_observation_data():
+    try:
+        is_allowed = my_new_validation_logic_to_external_api()
+        if not is_allowed:
+            logger.warn("for user with id x we get not allowed back")
+            is_allowed = True
+    except Exception as exc:
+        logger.warn("We got the following exception: %s", str(exc))
+        is_allowed = True
+
+        
+    if is_allowed:
+        return get_observation_data()
+
+```
