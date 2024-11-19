@@ -78,7 +78,7 @@ As you can see even the expected result is now an input of the test. We can use 
 # 3. Testing a unit of software without having to instantiate the all the code
 
 Sometimes it happens that you want to test function but in it a lot of complex objects are used that also need other objects. One way to deal with this is to add those complex objects as input to the function. You can that use this mock to prevent you having to create all those objects yourself.
-In the code bellow we see the complex class being mocked and then given an implementation for when the method is called. This way we don't need to create input_one and input_two with all of there possible inputs.
+In the code bellow we see the complex class being mocked and then given an implementation for when the method is called. This way we don't need to create input_one and input_two with all of their possible inputs. This type of test double tests state and behaviour.
 
 ```python
 from unittest.mock import MagicMock
@@ -103,6 +103,37 @@ def test_function_under_test():
     expected = 3
     assert result == expected
     assert inputs.execute.call_count == 1
+```
+
+Another way to not have to create the whole object graph is to use a fake. A fake a class that looks like the class it fakes (so inheritance is possible here) and has the methods that we want to test override. This type of test double tests state.
+
+```python
+class Complex:
+
+    def __init__(self, input_one, input_two):
+        self.input_one = input_one
+        self.input_two = input_two
+
+    def execute(self):
+        "do complex things"
+        pass
+
+
+def function_under_test(my_complex_object_with_multiple_inputs):
+    return my_complex_object_with_multiple_inputs.execute()
+
+class ComplexFake(Complex):
+    def __init__(self):
+        pass
+
+    def execute(self):
+        return 3
+
+def test_function_under_test():
+    inputs = ComplexFake()
+    result = function_under_test(inputs)
+    expected = 3
+    assert result == expected
 ```
 
 # 4. Working with external systems during a test
