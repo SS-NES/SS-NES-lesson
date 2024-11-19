@@ -1,7 +1,7 @@
 ---
 title: "Intermediate software testing"
-teaching: 90
-exercises: 15
+teaching: 60
+exercises: 0
 ---
 
 :::::: questions
@@ -31,16 +31,7 @@ exercises: 15
 In this episode we are going to take a look at a few different types of automated testing. We will also see how we can use code coverage the increase our confidence that everything still works when we make a change to the code. There is an assumed base of having worked through the material on [this website](https://coderefinery.github.io/testing/motivation/). We will also make use of the [python template](https://github.com/SS-NES/python-template) to get a standardized starting point.
 
 
-# 1. Create the testing setup.
-
-
-## use the SAD minimal template to get a correct setup
-
-## Add some basic tests
-
-
-
-# 2. Improve testing
+# 1. Improve testing
 
 ## Add code coverage
 
@@ -75,7 +66,7 @@ def test_get_english_headline(onset: str, phenomenon: str, expected: str) -> Non
 As you can see even the expected result is now an input of the test. We can use the ids parameter to give a test a name. With this name you can also run the test for only one of the ids.
 
 
-# 3. Testing a unit of software without having to instantiate the all the code
+# 2. Testing a unit of software without having to instantiate the all the code
 
 Sometimes it happens that you want to test function but in it a lot of complex objects are used that also need other objects. One way to deal with this is to add those complex objects as input to the function. You can that use this mock to prevent you having to create all those objects yourself.
 In the code bellow we see the complex class being mocked and then given an implementation for when the method is called. This way we don't need to create input_one and input_two with all of their possible inputs. This type of test double tests state and behaviour.
@@ -136,7 +127,7 @@ def test_function_under_test():
     assert result == expected
 ```
 
-# 4. Working with external systems during a test
+# 3. Working with external systems during a test
 
 When writing code you do not always have the data on your machine. Sometimes you need to download data over http. For this a lot of the time people use the requests library (when you have async code aiohttp is a nice alternative). For your test however you don't want to be dependent on the network, because this is unreliable and can have your tests sometimes fail for no reason. One way is to split the http call inside another method and use a fake response when testing that method. The following code calls the german weather opendata platform to get thunderstorm data. The page gets a lot of updates in the data but the format stay's the same. The the actual api calls can then be testing inside an integration test and also look at the error handling.
 
@@ -189,9 +180,9 @@ def test_download_latest_data_konrad3d():
     assert result == data
 ```
 
-# 5 Performance testing of functions
+# 4 Performance testing of functions
 
-There are moments that the performance of you function might matter a lot. You might not want a single function to ever execute slower than x seconds. To test this you could write tests for the specific functions that should stay fast. How this works is that you run a function x amount of times and the max duration of the function should not be higher than the x seconds. A useful library to help with these types of test in python is [pytest-benchmark](https://pytest-benchmark.readthedocs.io/en/stable/pedantic.html).
+There are moments that the performance of you function might matter a lot. You might not want a single function to ever execute slower than x seconds. To test this you could write tests for the specific functions that should stay fast. How this works is that you run a function x amount of times and the max duration of the function should not be higher than the x seconds. A useful library to help with these types of test in python is [pytest-benchmark](https://pytest-benchmark.readthedocs.io/en/stable/pedantic.html). This library can also be used to check if the performance between versions of the code is improved.
 
 ```python
 import time
@@ -211,11 +202,11 @@ This code can be run with the following command: `pytest -v -s the file_this_is_
 
 When you write API's you can also have performance requirements. For this another type of tool is used. One of the most used tools for this in python is locust. FOr more information about this tool look you can look at [their documentation](https://docs.locust.io/en/stable/what-is-locust.html).
 
-# 6. Smoke testing to see if your application is still doing its basic functionality
+# 5. Smoke testing to see if your application is still doing its basic functionality
 
 There are moments that you want to start an application but the application has some prerequisites it needs to have before you can say that it's good and allowed to run. For this you can use a smoketests. For example when you have an application that when a user calls it reads configurations files from a file system the check could be if the files exist at the correct location and the format is as expected. Maybe someone manually moved the files it this could break the whole system. So when the files are not there, there is smoke and thus if it's production we could get a fire.
 
-# 7. Runtime testing
+# 6. Runtime testing
 
 When software is in production and you introduce a new path inside the code you might want to run it for a while without actually implementing the behaviour inside that code path. And example for this is that when we implemented an extra validation for our public dataplatform we first added the validation where we allowed everything like before. But we executed the new logic and logged all unexpected things that happened. This gave us a lot of information about what would happen when we would turn the feature on for real. One important thing we found out that inside our network some http requests would only reach their destination after 10+ seconds. The application would already have given the users an error and that's not what we wanted. Because of this information we could add a solution that when we eventually brought our check live no users got an error.
 
@@ -244,7 +235,7 @@ def give_the_user_observation_data():
         return get_observation_data()
 ```
 
-# 8. Closing words
+# 7. Closing words
 
 In the previous parts we have looked at quite a few different types of test with examples. Also some ways on making the tests more reusable and improving the quality. We would like to end with giving a few more possible resources where you could find information about different types of tests or testing tools:
 
