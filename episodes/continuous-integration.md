@@ -15,9 +15,10 @@ exercises: 15
 
 :::::: objectives
 
-- Understand what CI/CD is and why you would or would not use it for your projects.
-- The relationship between CI/CD and version control
-- How to build a simple CI/CD pipeline or workflow
+- Understand the basic concepts of Continuous Integration and Continuous Delivery and why you would or would not use it.
+- Identify freely available tools and services to implement these concepts in a research context. More specifically:
+  - The relationship between CI/CD and version control
+  - How to build a simple CI/CD pipeline or workflow
 ::::::
 
 The main goal is to create awareness of the concept of Continuous Integration and Continuous Delivery and some of the tools to support it.
