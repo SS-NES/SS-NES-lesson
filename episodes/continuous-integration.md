@@ -27,17 +27,16 @@ The main goal is to create awareness of the concept of Continuous Integration an
 
 ## Introduction
 
-Continuous integration is the practice of integrating all your code changes
-into the main branch of a shared source code repository early and often,
-automatically testing each change when you commit or merge them, and
-automatically kicking off a build. -- gitlab.com
+> Continuous integration is the practice of integrating all your code changes
+> into the main branch of a shared source code repository early and often,
+> automatically testing each change when you commit or merge them, and
+> automatically kicking off a build. -- gitlab.com
 
 Not to be confused with DevOps: CICD is _not_ DevOps, but DevOps requires CICD.
-DevOps is the concept where a team is responsible for the entire life cycle of
-a software product or software component. From development to deployment to
-operating and maintaining it in production. Continuous Integration and
-Continuous Delivery and/or Deployment plays a large role in this. But DevOps is
-not required for leveraging CI/CD.
+DevOps is the concept where a team is responsible for the entire life cycle of a software product or software component.
+From development to deployment to operating and maintaining it in production.
+Continuous Integration and Continuous Delivery and/or Deployment plays a large role in this.
+But DevOps is not required for leveraging CI/CD.
 
 <https://github.com/resources/articles/devops/ci-cd>
 
@@ -45,41 +44,38 @@ We should distinguish Continuous Integration, Continuous Delivery and Continuous
 
 ### Continuous Integration
 
-Continuous integration is the practice of integrating all your code changes
-into the main branch of a shared source code repository early and often,
-automatically testing each change when you commit or merge them, and
-automatically kicking off a build. With continuous integration, errors and
-security issues can be identified and fixed more easily, and much earlier in
-the development process. -- gitlab.com
+> Continuous integration is the practice of integrating all your code changes
+> into the main branch of a shared source code repository early and often,
+> automatically testing each change when you commit or merge them, and
+> automatically kicking off a build. With continuous integration, errors and
+> security issues can be identified and fixed more easily, and much earlier in
+> the development process. -- gitlab.com
 
 ### Continous Delivery
 
-Continuous delivery is a software development practice that works in
-conjunction with CI to automate the infrastructure provisioning and application
-release process. -- gitlab.com
+> Continuous delivery is a software development practice that works in
+> conjunction with CI to automate the infrastructure provisioning and
+> application release process. -- gitlab.com
 
-This can be understood as creating a Docker container, creating a PyPi package
-for Python, a jar file for Java or equivalents for programming languages like R
-or C/C++ and Fortran. This will be done in an automated way every time a change
-is pushed to the git repository on github, or gitlab or some other platform.
+This can be understood as creating a Docker container, creating a PyPi package for Python, a jar file for Java or equivalents for programming languages like R or C/C++ and Fortran.
+This will be done in an automated way every time a change is pushed to the git repository on github, or gitlab or some other platform.
 
 ### Continous Deployment
 
-Continuous deployment enables organizations to deploy their applications
-automatically, eliminating the need for human intervention. -- gitlab.com
+> Continuous deployment enables organizations to deploy their applications
+> automatically, eliminating the need for human intervention. -- gitlab.com
 
-When talking about deployment, we mean that the software is running on a server
-and the services it provides are available for consumption by other sofftware
-components. For research software that is the focus of this course, that is
-rarely the case, so we ignore Continous Deployment and focus on Integration and Delivery.
+When talking about deployment, we mean that the software is running on a server and the services it provides are available for consumption by other software components.
+For research software that is the focus of this course, that is rarely the case, so we ignore Continuous Deployment and focus on Integration and Delivery.
 
 ## Why would we want Continuous Integration and Continuous Delivery?
 
-You should use CI/CD when you work in a collaborative project where changes created by different contributors need to be merged and tested. The earlier in the process you do this, the easier any bugs or merge conflicts are to solve.
+You should use CI/CD when you work in a collaborative project where changes created by different contributors need to be merged and tested.
+The earlier in the process you do this, the easier any bugs or merge conflicts are to solve.
 
-However, even in projects with a single developer utilizing CI/CD tools can be very benificial. It will enable users of the software to have early access to it and bugs are discovered sooner. It also enables the developer to run unit testing in an automated way to discover bugs early in the process.
-
-_Todo: needs more text_
+However, even in projects with a single developer utilizing CI/CD tools can be very benificial.
+It will enable users of the software to have early access to it and bugs are discovered sooner.
+It also enables the developer to run unit testing in an automated way to discover bugs early in the process.
 
 - The earlier conflicts and bugs are discovered, the easier they are to fix.
 - Deliver value to the user of the software quickly
@@ -88,10 +84,8 @@ _Todo: needs more text_
 
 ## Relationship between version control and CI/CD
 
-_Todo: needs more text_
-
-CICD relies on version control. Workflows are usually triggered by events, such
-as merging to the main branch, happening on the verson control repository.
+CICD relies on version control.
+Workflows are usually triggered by events, such as merging to the main branch happening on the verson control repository.
 
 # Pipelines or workflows
 
@@ -223,4 +217,4 @@ For a demo example see https://github.com/neutvd/try-hello-tdcc-nes
 
 ## And more...
 
-Github provides a collection of starter workflows that you can build on: https://github.com/actions/starter-workflows/tree/main
+Github provides a collection of starter workflows that you can build on: https://github.com/actions starter-workflows/tree/main
