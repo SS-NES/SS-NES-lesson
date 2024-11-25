@@ -11,7 +11,7 @@ Part of the challenge in filling out a Software Management Plan (SMP) is to unde
 Figure
 ![Decision Tree Layout](../img/Decision_Tree_graphic.svg)
 
-The reasoning behind the structure of the decision tree is to allow you to jump out of the process and into filling out the SMP as soon as possible. As you might notice from the figure above, the more people are involved in a project, the more complex the SMP is going to be.
+The reasoning behind the structure of the decision tree is to allow you to start filling in the SMP, as soon as all relevant topics for your software are identified. You don't need to navigate the entire decision tree unless all topics in the SMP are relevant to you. As you might notice from the figure above, the more people are involved in a project, the more complex the SMP is going to be.
 With the same reasoning in mind, the least amount of people need to interact with your software, the least amount of bureaucracy you need to perform on it. This results in a shorter and more compact SMP.
 
 ## Question 1: Is your software going to be publically accessible?
@@ -25,7 +25,7 @@ If you answer "No", then only the purpose of your software and a risk analysis q
 
 ## Question 2: Is your software going to be reused after its initial purpose?
 
-This question is the first that lets you jump out of the Decision Tree and into filling in the SMP, should you choose "No". This is the case if your software is designed and intended for one time use. The SMP you need for it is going to be rather simple, since you do not need to maintain or expand the software. In general, the amount of people that are going to interact with your software is going estimated to be rather small. Especially if your software is not going to be public.
+This question is the first that lets you jump out of the Decision Tree and into filling in the SMP, should you choose "No". This is the case if your software is designed and intended for one-time use. The SMP for this usecase is going to be rather simple, since you do not need to maintain or expand the software. In general, the amount of people that are going to interact with your software is going estimated to be rather small. Especially if your software is not going to be public.
 
 Should you instead choose "Yes" in this question, then your SMP will contain questions on the documentation that you will provide, as well as the testing that you set up to ensure that the software works as intended. Finally, a question on your software quality (and coding conventions) will be added to the SMP.
 
