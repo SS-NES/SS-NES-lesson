@@ -15,10 +15,11 @@ exercises: 15
 
 :::::: objectives
 
-- Understand the basic concepts of Continuous Integration and Continuous Delivery and why you would or would not use it.
-- Identify freely available tools and services to implement these concepts in a research context. More specifically:
-  - The relationship between CI/CD and version control
-  - How to build a simple CI/CD pipeline or workflow
+- Be able to explain the basic concepts of Continuous Integration and Continuous Delivery.
+- Be able to explain (identify three reasons) why Continuous Integration and Continuous Delivery should be used.
+- Be able to identify freely available tools and services to implement these concepts in a research context.
+- Be able to explain the relationship between CI/CD and version control
+- Be able to build a simple CI/CD pipeline or workflow
 ::::::
 
 The main goal is to create awareness of the concept of Continuous Integration and Continuous Delivery and some of the tools to support it.
@@ -27,18 +28,16 @@ The main goal is to create awareness of the concept of Continuous Integration an
 
 ## Introduction
 
-> Continuous integration is the practice of integrating all your code changes
-> into the main branch of a shared source code repository early and often,
-> automatically testing each change when you commit or merge them, and
-> automatically kicking off a build. -- gitlab.com
+The [Turing way][1] explains the concept very well.
 
-Not to be confused with DevOps: CICD is _not_ DevOps, but DevOps requires CICD.
+Continuous Integration should not be confused with [DevOps][2]: CICD is _not_ DevOps, but DevOps effectively requires CICD.
 DevOps is the concept where a team is responsible for the entire life cycle of a software product or software component.
 From development to deployment to operating and maintaining it in production.
 Continuous Integration and Continuous Delivery and/or Deployment plays a large role in this.
 But DevOps is not required for leveraging CI/CD.
 
-<https://github.com/resources/articles/devops/ci-cd>
+[1]: https://book.the-turing-way.org/reproducible-research/ci/ci-options "What is continuous integration?"
+[2]: https://github.com/resources/articles/devops/ci-cd
 
 We should distinguish Continuous Integration, Continuous Delivery and Continuous Deployment.
 
@@ -49,13 +48,17 @@ We should distinguish Continuous Integration, Continuous Delivery and Continuous
 > automatically testing each change when you commit or merge them, and
 > automatically kicking off a build. With continuous integration, errors and
 > security issues can be identified and fixed more easily, and much earlier in
-> the development process. -- gitlab.com
+> the development process. -- [gitlab.com][3]
+
+[3]: https://about.gitlab.com/topics/ci-cd/#what-is-continuous-integration-ci "What is continuous integration?"
 
 ### Continous Delivery
 
 > Continuous delivery is a software development practice that works in
 > conjunction with CI to automate the infrastructure provisioning and
-> application release process. -- gitlab.com
+> application release process. -- [gitlab.com][4]
+
+[4]: https://about.gitlab.com/topics/ci-cd/#what-is-continuous-delivery-cd "What is continuous delivery?"
 
 This can be understood as creating a Docker container, creating a PyPi package for Python, a jar file for Java or equivalents for programming languages like R or C/C++ and Fortran.
 This will be done in an automated way every time a change is pushed to the git repository on github, or gitlab or some other platform.
@@ -63,15 +66,17 @@ This will be done in an automated way every time a change is pushed to the git r
 ### Continous Deployment
 
 > Continuous deployment enables organizations to deploy their applications
-> automatically, eliminating the need for human intervention. -- gitlab.com
+> automatically, eliminating the need for human intervention. -- [gitlab.com][5]
+
+[5]: https://about.gitlab.com/topics/ci-cd/#what-is-continuous-deployment "What is continuous deployment?"
 
 When talking about deployment, we mean that the software is running on a server and the services it provides are available for consumption by other software components.
 For research software that is the focus of this course, that is rarely the case, so we ignore Continuous Deployment and focus on Integration and Delivery.
 
-## Why would we want Continuous Integration and Continuous Delivery?
+## Why is Continuous Integration and Continuous Delivery recommended?
 
-You should use CI/CD when you work in a collaborative project where changes created by different contributors need to be merged and tested.
-The earlier in the process you do this, the easier any bugs or merge conflicts are to solve.
+CI/CD should be used when work is done in a collaborative project where changes created by different contributors need to be merged and tested.
+The earlier in the process this is done, the easier any bugs or merge conflicts are to solve.
 
 However, even in projects with a single developer utilizing CI/CD tools can be very benificial.
 It will enable users of the software to have early access to it and bugs are discovered sooner.
@@ -89,7 +94,9 @@ Workflows are usually triggered by events, such as merging to the main branch ha
 
 # Pipelines or workflows
 
-_Todo: explain the concept of CI/CD pipelines / workflows_
+> A CI/CD pipeline is an automated process utilized by software development teams to streamline the creation, testing and deployment of applications. -- [gitlab.com][6]
+
+[6]: https://about.gitlab.com/topics/ci-cd/#what-are-ci-cd-pipelines "What are CI/CD pipelines"
 
 ## Pipeline stages
 
@@ -205,16 +212,17 @@ jobs:
         uses: pypa/gh-action-pypi-publish@6f7e8d9c0b1a2c3d4e5f6a7b8c9d0e1f2a3b4c5d
 ```
 
-For a demo example see https://github.com/neutvd/try-hello-tdcc-nes
-
 ## Run automated tests
 
 ## Build containers
 
--   Reproducable, all dependencies, packages included.
+- Reproducable, all dependencies, packages included.
 
 <https://github.com/actions/starter-workflows/blob/main/ci/docker-image.yml>
 
-## And more...
+## And more
 
-Github provides a collection of starter workflows that you can build on: https://github.com/actions starter-workflows/tree/main
+Github provides a [collection][7] of starter workflows that you can build on.
+
+[7]: https://github.com/actions/starter-workflows/tree/main
+
