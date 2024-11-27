@@ -226,3 +226,241 @@ Github provides a [collection][7] of starter workflows that you can build on.
 
 [7]: https://github.com/actions/starter-workflows/tree/main
 
+## Demo: From zero to published package in 15 minutes
+
+### Step 1: Create a Python project
+
+First step is to create a Python project on your personal computer.
+There are several tools to help you with this.
+In this tutorial we'll be using [Poetry](https://python-poetry.org/docs/basic-usage/).
+
+```sh
+poetry new demo-tdcc-nes
+cd demo-tdcc-nes
+```
+
+Next turn the project into a git repository:
+
+```sh
+git init --initial-branch=main
+```
+
+And add the project's contents to it:
+
+```sh
+git add .
+git commit -m "Initial commit"
+```
+
+### Step 2: Create a github repository and push the project to it
+
+1. Go to https://github.com and login.
+2. Click on "New" to create a new project and give it the name `demo-tddc-nes`.
+3. Click "Create repository" at the bottom right. No need to change anything else.
+
+Then push the project with the following commands:
+
+```sh
+git remote add origin git@github.com:neutvd/demo-tddc-nes.git
+git push -u origin main
+```
+
+Refresh the page in the browser and you will see the contents of your project.
+
+### Step 3: Create a python module and a test
+
+With a text editor create a file `hello.py` in the `demo_tdcc_nes/` subfolder in the repository and paste the contents below.
+
+```python
+def hello(thing: str) -> str:
+    return f"Hello {thing}"
+```
+
+Next, to create a test, create a folder `tests` in the repository top level directory:
+
+```sh
+mkdir tests
+```
+
+So, the repository should look like this:
+
+```text
+.
+├── demo_tdcc_nes
+│   ├── hello.py
+│   └── __init__.py
+├── pyproject.toml
+├── README.md
+└── tests
+    └── __init__.py
+```
+
+Now create a file `test_hello.py` in the `tests` folder and paste the following content:
+
+```python
+import pytest
+
+import demo_tdcc_nes
+import demo_tdcc_nes.hello
+
+@pytest.mark.parametrize('thing, expected', [("TDCC-NES", "Hello TDCC-NES")])
+def test_hello(thing: str, expected: str) -> None:
+    result = demo_tdcc_nes.hello.hello(thing)
+    assert result == expected
+```
+
+install pytest package:
+
+```sh
+pipx install pytest
+```
+
+Then run the tests as follows:
+
+```sh
+pytest tests/
+```
+
+And examine the result of a passing test:
+
+```txt
+$ pytest tests/
+================================================== test session starts ===================================================
+platform linux -- Python 3.11.9, pytest-8.3.3, pluggy-1.5.0
+rootdir: /home/user/projects/TDCC/demo-tdcc-nes
+configfile: pyproject.toml
+collected 1 item                                                                                                         
+
+tests/test_hello.py .                                                                                              [100%]
+
+=================================================== 1 passed in 0.01s ====================================================
+$
+```
+
+### Step4: Commit the changes to git and push them to github
+
+Type `git status` to show the files that have been added or have had their contents changed since the last commit.
+
+```text
+$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        demo_tdcc_nes/hello.py
+        tests/test_hello.py
+
+nothing added to commit but untracked files present (use "git add" to track)
+```
+
+Stage the changes and commit:
+
+```sh
+git add demo_tdcc_nes/hello.py tests/test_hello.py
+git commit -m "Implemented hello with test"
+```
+
+Next push the changes to github:
+
+```sh
+git push
+```
+
+### Step 5: Add a github actions workflow
+
+The next step is to add a workflow to trigger github into creating a package and make it available.
+
+Create the `.github/workflows` sub folder in the repository:
+
+```sh
+mkdir -p .github/workflows
+```
+
+The repository now should look like this:
+
+```text
+.
+├── demo_tdcc_nes
+│   ├── hello.py
+│   ├── __init__.py
+│   └── __pycache__
+│       ├── hello.cpython-311.pyc
+│       └── __init__.cpython-311.pyc
+├── .github
+│   └── workflows
+├── pyproject.toml
+├── README.md
+└── tests
+    ├── __init__.py
+    ├── __pycache__
+    │   ├── __init__.cpython-311.pyc
+    │   └── test_hello.cpython-311-pytest-8.3.3.pyc
+    └── test_hello.py
+```
+
+In the `.github/workflows` folder create the file `build-demo-tdcc-nes.yml`.
+The name of the file is not very important, it's helpful however to choose a name that identifies what it does.
+It should have the extension `.yml` or `.yaml` so it can be identifies as a yaml file.
+
+Add the content below to the `.github/workflows/build-demo-tdcc-nes.yml` file:
+
+```yaml
+name: Upload Python Package
+
+on: [push]
+
+permissions:
+  contents: read
+
+jobs:
+  release-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build release distributions
+        run: |
+          # NOTE: put your own distribution build steps here.
+          python -m pip install build
+          python -m build
+
+      - name: Upload distributions
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-dists
+          path: dist/
+
+  pypi-publish:
+    runs-on: ubuntu-latest
+
+    needs:
+      - release-build
+
+    steps:
+      - name: Retrieve release distributions
+        uses: actions/download-artifact@v4
+        with:
+          name: release-dists
+          path: dist/
+```
+
+Stage the change, commit and push:
+
+```sh
+git add .github
+git commit -m "Add packaging workflow"
+git push
+```
+
+Click on the "Actions" tab in the github web page to see the workflow.
+Then click on the workflow (it has the title of the `git commit` message).
+A small graph is shown and at the bottom "release-dists" link is provided.
+Click on that to download the package.
+
+That's it! Package published!
