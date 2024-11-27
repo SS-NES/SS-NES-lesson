@@ -1,114 +1,110 @@
 ---
-title: "Using Markdown"
+title: "Introduction"
 teaching: 10
-exercises: 2
+exercises: 10
 ---
 
-:::::::::::::::::::::::::::::::::::::: questions 
+:::::::::::::::::::::::::::::::::::::: questions
 
-- How do you write a lesson using Markdown and `{sandpaper}`?
+- What is a Software Management Plan (SMP)?
+- What is the SMP Tool?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with The Carpentries Workbench
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+- Understand the role of a Software Management Plan (SMP)
+- Explain how the SMP Tool facilitates creating an SMP
+- Outline the workflow of the SMP
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Introduction
 
-This is a lesson created via The Carpentries Workbench. It is written in
-[Pandoc-flavored Markdown](https://pandoc.org/MANUAL.txt) for static files and
-[R Markdown][r-markdown] for dynamic files that can render code into output. 
-Please refer to the [Introduction to The Carpentries 
-Workbench](https://carpentries.github.io/sandpaper-docs/) for full documentation.
+A Software Management Plan (SMP) is a formal document explaining how software is written and managed both during and after a research project. It is a living document and will evolve with the boundary conditions of your project and software. While it is encouraged to write an SMP _before_ starting to develop code, it is never too late to create one for existing projects.
 
-What you need to know is that there are three sections required for a valid
-Carpentries lesson:
+### Importance
 
- 1. `questions` are displayed at the beginning of the episode to prime the
-    learner for the content.
- 2. `objectives` are the learning objectives for an episode displayed with
-    the questions.
- 3. `keypoints` are displayed at the end of the episode to reinforce the
-    objectives.
+SMPs provide value both inside and outside your organization. It encourages you to think about the roles and responsibilities within the project and gives guidance for new team members. Writing an SMP will guide you through the best practices that you can apply to your software based on the size and scope of your project. Following the best practices outlined in an SMP will make it easier for others to use or cite your software. For all of the above reasons some research funders start to require an SMP to be included in proposals.
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
+## General Workflow
 
-Inline instructor notes can help inform instructors of timing challenges
-associated with the lessons. They appear in the "Instructor View"
+The SMP Tool is an online service and will be provided to you either by your organization or a third party. It is a questionnaire which will provide you with an SMP upon completion.
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+It starts out with a few questions relevant for projects, like the general goal of the project. Then you will be presented with a few questions that define the scope of your project. These are a "decision tree" that can switch on or off many of the following "content questions" which tailor the content of the SMP to the scope of your project.
 
-::::::::::::::::::::::::::::::::::::: challenge 
+After you complete the questionnaire you can download different versions of the SMP for your project.
 
-## Challenge 1: Can you do it?
+## Output Files
 
-What is the output of this command?
+You can download your SMP in three different variants. The first one is a human-readable Word document. For many projects this is all that is needed.
+
+The second variant is a machine-readable copy of _all_ the provided answers in JSON format. This can be used as a backup of the provided data and for custom processing in your own workflows.
+
+The third and last variant contains machine-readable SMP information in YAML format that can be used as input for the [NLeSC Python Template](https://github.com/NLeSC/python-template) to start a new software project.
+
+## Exercises:
+
+The SMP Tool provides you with several output files for different purposes. What benefit can they give you?
+
+
+### Challenge 1: How could you use the machine-readable JSON output?
+
 
 ```r
-paste("This", "new", "lesson", "looks", "good")
+The machine-readable JSON output contains all the supplied answers. There is no ready-made tooling yet to consume it, but you can create your own. For which purposes could this be useful?
 ```
 
-:::::::::::::::::::::::: solution 
+:::::::::::::::::::::::: solution
 
-## Output
+```
+1) The machine-readable JSON output is a backup of all your supplied answers. You can use it when you re-visit the SMP Tool in the future to incorporate changes in boundary conditions or project scope.
+2) Having a machine-readable SMP enables you to consume the data in other tools. This could be a compliance checker that tests your projects for applied best practices, a tool that charts license usage across projects, or a script that maps authors to projects.
+```
+
+:::::::::::::::::::::::::::::::::
+
+### Challenge 2: How can you use the machine-readable YAML output?
+
+
+```r
+The YAML output can be consumed by the [NLeSC Python Template](https://github.com/NLeSC/python-template) for starting a Python project. What is the workflow here? Read up about the template and understand how it can help your project.
+```
+
+:::::::::::::::::::::::: solution
  
-```output
-[1] "This new lesson looks good"
+```
+TODO
+```
+
+:::::::::::::::::::::::::::::::::
+
+### Challenge 3: Which of the output files would be useful for your own project?
+
+
+```r
+Imagine how you could use the different output files for your own project.
+```
+
+:::::::::::::::::::::::: solution
+ 
+```
+Free discussion
 ```
 
 :::::::::::::::::::::::::::::::::
 
 
-## Challenge 2: how do you nest solutions within challenge blocks?
+::::::::::::::::::::::::::::::::::::: keypoints
 
-:::::::::::::::::::::::: solution 
-
-You can add a line with at least three colons and a `solution` tag.
-
-:::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Figures
-
-You can use standard markdown for static figures with the following syntax:
-
-`![optional caption that appears below the figure](figure url){alt='alt text for
-accessibility purposes'}`
-
-![You belong in The Carpentries!](https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.'}
-
-::::::::::::::::::::::::::::::::::::: callout
-
-Callout sections can highlight information.
-
-They are sometimes used to emphasise particularly important points
-but are also used in some lessons to present "asides": 
-content that is not central to the narrative of the lesson,
-e.g. by providing the answer to a commonly-asked question.
+- A SMP is valuable in any stage of your project
+  - It outlines how the software supports the vision of your project
+  - It encourages you to follow best practices based on the scope of your project
+- The SMP Tool uses a decision tree to determine the relevant content questions
+  - Simple software projects require less information
+- The SMP Tool creates three output files
+  - A human-readable SMP
+  - A machine-readable SMP (JSON dump of all answers) for custom processing
+  - Machine-readable SMP information as input for the [NLeSC Python Template](https://github.com/NLeSC/python-template) (YAML format)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-## Math
-
-One of our episodes contains $\LaTeX$ equations when describing how to create
-dynamic reports with {knitr}, so we now use mathjax to describe this:
-
-`$\alpha = \dfrac{1}{(1 - \beta)^2}$` becomes: $\alpha = \dfrac{1}{(1 - \beta)^2}$
-
-Cool, right?
-
-::::::::::::::::::::::::::::::::::::: keypoints 
-
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-[r-markdown]: https://rmarkdown.rstudio.com/
