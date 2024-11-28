@@ -35,7 +35,7 @@ In this episode we are going to take a look at a few different types of automate
 
 ## Add code coverage
 
-What is code coverage? Code coverage is the percentage of the research / production code you have written that is covered by unittests. If you have a very high percentage then when you make a change in the code, and it breaks the chances of it being caught before showing it to users is very high. If you have a low percentage the chances of finding these bugs are low, or you have to do a lot of manual testing.  When working with python and pytest there are packages to easily get the test coverage of your application. The one used most is [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/config.html) .
+What is code coverage? Code coverage is the percentage of the research / production code you have written that is covered by [unittests](https://book.the-turing-way.org/reproducible-research/testing/testing-unittest). If you have a very high percentage then when you make a change in the code, and it breaks the chances of it being caught before showing it to users is very high. If you have a low percentage the chances of finding these bugs are low, or you have to do a lot of manual testing.  When working with python and pytest there are packages to easily get the test coverage of your application. The one used most is [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/config.html) .
 
 ## Add parameterized tests
 
@@ -64,12 +64,12 @@ def test_get_english_headline(onset: str, phenomenon: str, expected: str) -> Non
 ```
 
 As you can see even the expected result is now an input of the test. We can use the ids parameter to give a test a name. With this name you can also run the test for only one of the ids.
+For more information on parameterized tests you can read [this how-to guide](https://docs.pytest.org/en/stable/how-to/parametrize.html#pytest-mark-parametrize).
 
+# 2. Testing a unit of software without having to instantiate all the code
 
-# 2. Testing a unit of software without having to instantiate the all the code
-
-Sometimes it happens that you want to test function but in it a lot of complex objects are used that also need other objects. One way to deal with this is to add those complex objects as input to the function. You can that use this mock to prevent you having to create all those objects yourself.
-In the code bellow we see the complex class being mocked and then given an implementation for when the method is called. This way we don't need to create input_one and input_two with all of their possible inputs. This type of test double tests state and behaviour.
+Sometimes it happens that you want to test a function but in that function a lot of complex objects are used (and those objects in turn need other objects...). One way to deal with this is to add those complex objects as input to the function. You can that use this mock to prevent you having to create all those objects yourself.
+In the code bellow we see the complex class being mocked and then given an implementation for when the method is called. This way we don't need to create `input_one `and `input_two `with all of their possible inputs. This type of test double tests state and behaviour.
 
 ```python
 from unittest.mock import MagicMock
@@ -95,7 +95,7 @@ def test_function_under_test():
     assert result == expected
     assert inputs.execute.call_count == 1
 ```
-
+For more information on mocking you can read [this quick guide](https://docs.python.org/3/library/unittest.mock.html#quick-guide).
 Another way to not have to create the whole object graph is to use a fake. A fake a class that looks like the class it fakes (so inheritance is possible here) and has the methods that we want to test override. This type of test double tests state.
 
 ```python
