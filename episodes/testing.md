@@ -129,7 +129,7 @@ def test_function_under_test():
 
 # 3. Working with external systems during a test
 
-When writing code you do not always have the data on your machine. Sometimes you need to download data over http. For this a lot of the time people use the requests library (when you have async code aiohttp is a nice alternative). For your test however you don't want to be dependent on the network, because this is unreliable and can have your tests sometimes fail for no reason. One way is to split the http call inside another method and use a fake response when testing that method. The following code calls the german weather opendata platform to get thunderstorm data. The page gets a lot of updates in the data but the format stay's the same. The the actual api calls can then be testing inside an integration test and also look at the error handling.
+When writing code you do not always have the data on your machine. Sometimes you need to download data over http. For this a lot of the time people use the requests library (when you have async code aiohttp is a nice alternative). For your unit test however you don't want to be dependent on the network, because this is unreliable and can have your tests sometimes fail for no reason. One way is to split the http call inside another method and use a fake response when testing that method. The following code calls the german weather opendata platform to get thunderstorm data. The page gets a lot of updates in the data but the format stay's the same. The actual api calls can then be tested inside an integration test and also look at the error handling. More information about integration testing can be found at [the turing way](https://book.the-turing-way.org/reproducible-research/testing/testing-integrationtest).
 
 ```python
 import requests
@@ -204,11 +204,28 @@ When you write API's you can also have performance requirements. For this anothe
 
 # 5. Smoke testing to see if your application is still doing its basic functionality
 
-There are moments that you want to start an application but the application has some prerequisites it needs to have before you can say that it's good and allowed to run. For this you can use a smoketests. For example when you have an application that when a user calls it reads configurations files from a file system the check could be if the files exist at the correct location and the format is as expected. Maybe someone manually moved the files it this could break the whole system. So when the files are not there, there is smoke and thus if it's production we could get a fire.
+There are moments that you want to start an application but the application has some prerequisites it needs to have before you can say that it's good and allowed to run. For this you can use a smoke tests. For example when you have an application that when a user calls it reads configurations files from a file system the check could be if the files exist at the correct location and the format is as expected. Maybe someone manually moved the files it this could break the whole system. So when the files are not there, there is smoke and thus if it's production we could get a fire. In the example bellow you could see how to test something like this in the same application. However, most of the time those checks would be in another script before you start this script (or if you use Kubernetes an init container).
+
+```python
+def config_file_is_found():
+    #check on location if file exists
+    pass
+
+def main():
+     #application logic
+    pass
+
+if __name__ == '__main__':
+    if not config_file_is_found(): 
+        raise FileNotFoundError("our config file is not found")
+    main()
+```
+
+More information about smoke tests can be found on [the turing way](https://book.the-turing-way.org/reproducible-research/testing/testing-smoketest).
 
 # 6. Runtime testing
 
-When software is in production and you introduce a new path inside the code you might want to run it for a while without actually implementing the behaviour inside that code path. And example for this is that when we implemented an extra validation for our public dataplatform we first added the validation where we allowed everything like before. But we executed the new logic and logged all unexpected things that happened. This gave us a lot of information about what would happen when we would turn the feature on for real. One important thing we found out that inside our network some http requests would only reach their destination after 10+ seconds. The application would already have given the users an error and that's not what we wanted. Because of this information we could add a solution that when we eventually brought our check live no users got an error.
+When software is in production, and you introduce a new path inside the code you might want to run it for a while without actually implementing the behaviour inside that code path. And example for this is that when we implemented an extra validation for our public dataplatform we first added the validation where we allowed everything like before. But we executed the new logic and logged all unexpected things that happened. This gave us a lot of information about what would happen when we would turn the feature on for real. One important thing we found out that inside our network some http requests would only reach their destination after 10+ seconds. The application would already have given the users an error and that's not what we wanted. Because of this information we could add a solution that when we eventually brought our check live no users got an error.
 
 An example of a check like this can be found bellow.
 
@@ -235,9 +252,11 @@ def give_the_user_observation_data():
         return get_observation_data()
 ```
 
+An example where you would like to do this for a research project might be when with reinforcement learning steps take too long. This can mean that for cost efficiency at that moment it is the most cost-effective. More information on runtime testing can be found at [the turing way](https://book.the-turing-way.org/reproducible-research/testing/testing-runtime).
+
 # 7. Closing words
 
-In the previous parts we have looked at quite a few different types of test with examples. Also some ways on making the tests more reusable and improving the quality. We would like to end with giving a few more possible resources where you could find information about different types of tests or testing tools:
+In the previous parts we have looked at quite a few different types of test with examples. Also, some ways on making the tests more reusable and improving the quality. We would like to end with giving a few more possible resources where you could find information about different types of tests or testing tools:
 
 - [pytest and all types of integrations with it](https://pytest-with-eric.com/)
 - [the turing way](https://book.the-turing-way.org/reproducible-research/testing)
