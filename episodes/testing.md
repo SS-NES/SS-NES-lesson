@@ -96,36 +96,6 @@ def test_function_under_test():
     assert inputs.execute.call_count == 1
 ```
 For more information on mocking you can read [this quick guide](https://docs.python.org/3/library/unittest.mock.html#quick-guide).
-Another way to not have to create the whole object graph is to use a fake. A fake a class that looks like the class it fakes (so inheritance is possible here) and has the methods that we want to test override. This type of test double tests state.
-
-```python
-class Complex:
-
-    def __init__(self, input_one, input_two):
-        self.input_one = input_one
-        self.input_two = input_two
-
-    def execute(self):
-        "do complex things"
-        pass
-
-
-def function_under_test(my_complex_object_with_multiple_inputs):
-    return my_complex_object_with_multiple_inputs.execute()
-
-class ComplexFake(Complex):
-    def __init__(self):
-        pass
-
-    def execute(self):
-        return 3
-
-def test_function_under_test():
-    inputs = ComplexFake()
-    result = function_under_test(inputs)
-    expected = 3
-    assert result == expected
-```
 
 # 3. Working with external systems during a test
 
