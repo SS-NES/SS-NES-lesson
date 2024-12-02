@@ -41,6 +41,8 @@ But DevOps is not required for leveraging CI/CD.
 
 We should distinguish Continuous Integration, Continuous Delivery and Continuous Deployment.
 
+For more information about DevOps see the [guide at github](https://github.com/resources/articles/devops/pipeline).
+
 ### Continuous Integration
 
 > Continuous integration is the practice of integrating all your code changes
@@ -112,6 +114,8 @@ Workflows are usually triggered by events, such as merging to the main branch ha
 
 Workflows are defined in the `.github/workflows` directory in a git repository.
 
+Github has a [quick start tutorial](https://docs.github.com/en/actions/writing-workflows/quickstart) to get you started with workflows.
+
 ```yaml
 name: Run unit tests
 
@@ -141,7 +145,9 @@ jobs:
 
 ## Github workflow publishing a package to PyPi
 
-(From <https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-python#publishing-to-pypi>)
+Examples and guides on publishing packages through github workflows are available [on github][8]
+
+[8]: https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-python
 
 ```yaml
 # This workflow uses actions that are not certified by GitHub.
