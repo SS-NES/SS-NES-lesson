@@ -79,13 +79,27 @@ If you choose to contribute via GitHub, you may want to look at [How to
 Contribute to an Open Source Project on GitHub][how-contribute]. In brief, we
 use [GitHub flow][github-flow] to manage changes:
 
+0. If an [issue][repo-issues] does not yet exist for what you want to
+   contribute, please make one first. It can be as short as a one-line
+   summary, but any motivation or references are always helpful.
 1. Create a new branch in your desktop copy of this repository for each
-   significant change.
-2. Commit the change in that branch.
+   significant change. A common naming strategy is `issue_number-description`
+   e.g. `42-add-citation-section`
+2. Commit the changes in that branch.
 3. Push that branch to your fork of this repository on GitHub.
+   - Organization members may push their branch directly to this repo instead.
 4. Submit a pull request from that branch to the [upstream repository][repo].
+   This should refer back to the issue being addressed, contain a summary and
+   any relevant information on decisions/trade-offs made.
+   - Organization members are invited to actively suggest one or two people to
+     review the PR. If you've been suggested as reviewer but are unable to,
+     just let this be known in the PR discussion.
 5. If you receive feedback, make changes on your desktop and push to your
    branch on GitHub: the pull request will update automatically.
+   - Both when giving and receiving feedback: [stay nice][code-review]!
+6. Once approved, a member of the organization will merge the PR, typically
+   the last reviewer to approve. In case the author is an organization member,
+   they are expected to perform the merge instead.
 
 NB: The published copy of the lesson is usually in the `main` branch.
 
@@ -102,9 +116,10 @@ community listed at <https://carpentries.org/connect/> including via social
 media, slack, newsletters, and email lists. You can also [reach us by
 email][contact].
 
-[repo]: https://example.com/FIXME
-[repo-issues]: https://example.com/FIXME/issues
-[contact]: mailto:team@carpentries.org
+[repo]: https://github.com/ss-nes/ss-nes-lesson
+[repo-issues]: https://github.com/ss-nes/ss-nes-lesson/issues
+[contact]: mailto:training@esciencecenter.nl
+[code-review]: https://mtlynch.io/human-code-reviews-1
 [cp-site]: https://carpentries.org/
 [dc-issues]: https://github.com/issues?q=user%3Adatacarpentry
 [dc-lessons]: https://datacarpentry.org/lessons/
