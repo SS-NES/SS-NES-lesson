@@ -23,12 +23,12 @@ exercises: 0
  - Use stubs to stub out complex paths of code.
  - Use performance testing tool to see if the speed of the code confirms to our demands.
  - Use smoke tests to do a quick check if the application should still run.
- - Use runtime testing to prevent weird cases. (hint to simulation testing?)
+ - Use runtime testing to prevent weird cases.
 ::::::
 
 # Introduction
 
-In this episode we are going to take a look at a few different types of automated testing. We will also see how we can use code coverage the increase our confidence that everything still works when we make a change to the code. There is an assumed base of having worked through the material on [this website](https://coderefinery.github.io/testing/motivation/). We will also make use of the [python template](https://github.com/SS-NES/python-template) to get a standardized starting point.
+In this episode we are going to take a look at a few different types of automated testing. We will also see how we can use code coverage the increase our confidence that everything still works when we make a change to the code. There is an assumed base of having worked through the material on [this website](https://coderefinery.github.io/testing/motivation/).
 
 
 # 1. Improve testing
@@ -69,7 +69,7 @@ For more information on parameterized tests you can read [this how-to guide](htt
 # 2. Testing a unit of software without having to instantiate all the code
 
 Sometimes it happens that you want to test a function but in that function a lot of complex objects are used (and those objects in turn need other objects...). One way to deal with this is to add those complex objects as input to the function. You can that use this mock to prevent you having to create all those objects yourself.
-In the code bellow we see the complex class being mocked and then given an implementation for when the method is called. This way we don't need to create `input_one `and `input_two `with all of their possible inputs. This type of test double tests state and behaviour.
+In the code bellow we see the complex class being mocked and then given an implementation for when the method is called. This way we don't need to create `input_one` and `input_two` with all of their possible inputs. This type of test double tests state and behaviour.
 
 ```python
 from unittest.mock import MagicMock
@@ -170,7 +170,7 @@ def test_my_function(benchmark):
 
 This code can be run with the following command: `pytest -v -s the file_this_is_in.py::test_my_function`. It will run the code 5 times and none of the calls is allowed to be slower than the allowed_speed.
 
-When you write API's you can also have performance requirements. For this another type of tool is used. One of the most used tools for this in python is locust. FOr more information about this tool look you can look at [their documentation](https://docs.locust.io/en/stable/what-is-locust.html).
+When you write API's you can also have performance requirements. For this another type of tool is used. One of the most used tools for this in python is locust. For more information about this tool look you can look at [their documentation](https://docs.locust.io/en/stable/what-is-locust.html).
 
 # 5. Smoke testing to see if your application is still doing its basic functionality
 
@@ -211,10 +211,10 @@ def give_the_user_observation_data():
     try:
         is_allowed = my_new_validation_logic_to_external_api()
         if not is_allowed:
-            logger.warn("for user with id x we get not allowed back")
+            logger.warning("for user with id x we get not allowed back")
             is_allowed = True
     except Exception as exc:
-        logger.warn("We got the following exception: %s", str(exc))
+        logger.warning("We got the following exception: %s", str(exc))
         is_allowed = True
 
         
