@@ -109,9 +109,7 @@ filling in the information you already entered in the SMP. For the other
 questions you weren't asked, the SMP tool has already suggested which set of
 optional features best suit your project.
 
-Because of a limitation in how `copier` handles these answer files, you don't
-to review these choices when first creating your project. But luckily there is
-a way to review the choices and to add extra features if you want.
+Due to the limitation how `copier` handles the answer files, you also cannot review choices you made in the SMP. We will show you how to revise choices and add extra features to your code repository below:
 
 ## Challenge 3: Add more features to your project
 
