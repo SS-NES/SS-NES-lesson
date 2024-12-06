@@ -13,8 +13,8 @@ exercises: 5
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain which content-questions are shown for which types of software projects
-- Teach the content of the SMP questions
+- Understand how to navigate the SMP tool based on project impact
+- Understand how to answer the questions in the SMP tool based on the information given and the resources provided
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -29,7 +29,7 @@ The SMP Tool questions will have detailed explanations and examples to aid the p
 TODO
 
 ### Decision Tree
-Part of the challenge in filling out a SMP is to understand and define which points in the SMP are relevant for your software. Depending on its scope and the impact you foresee it having, your software might need more attention in some areas of Software Management and less in others. The decision tree in our online questionnaire to help you define what is relevant in the Plan by answering at most four simple questions. The figure below shows how the decision tree works.
+Part of the challenge in filling out a SMP is to understand and define which points in the SMP are relevant for your software. Depending on its scope and the impact you foresee it having, your software might need more attention in some areas of Software Management and less in others. The decision tree in the online questionnaire is meant to help you define what is relevant in the Plan by answering at most four simple questions. The figure below shows how the decision tree works.
 
 Decision Tree
 ![Decision Tree Layout](../img/Decision_Tree_graphic.svg)
@@ -98,6 +98,8 @@ The author of the scripts has decided to store them on a GitLab instance present
 :::::::::::::::::::::::: solution 
  
 ```
+Depending on if you see verification as a form of reuse or not, two answers are possible, as shown below. The script will not be further modified or expanded by others, so there are not multiple users involved. Question 3 should be the latest point where you answer no.
+
 Either: 
 1) Yes 2) Yes 3) No 4) -
 Or:
@@ -115,6 +117,8 @@ As a result of an internal project, a software has been developed to track and p
 :::::::::::::::::::::::: solution 
 
 ```
+The project is still internal and will stay internal for a longer period of time, so the first question is a negative. Questions two and three are yes, because the scope of the project is to reuse the software and multiple people are involved in using and coding the software. Question 4 is no, as a community will most likely only build itself, if the software gets published.
+
 1) No 2) Yes 3) Yes 4) No
 ```
 
