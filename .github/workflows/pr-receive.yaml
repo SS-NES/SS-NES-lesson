@@ -48,7 +48,9 @@ jobs:
   build-md-source:
     name: "Build markdown source files if valid"
     needs: test-pr
-    runs-on: ubuntu-latest
+    # 2025-01-21: ubuntu-latest is now 24.04 and R is not installed by default in the runner image
+    # pin to 22.04 for now. See Carpentries issue/PR [605](https://github.com/carpentries/sandpaper/issues/605)/[606](https://github.com/carpentries/sandpaper/pull/606)
+    runs-on: ubuntu-22.04
     if: ${{ needs.test-pr.outputs.is_valid == 'true' }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
