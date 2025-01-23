@@ -94,7 +94,7 @@ It also enables the developer to run unit testing in an automated way to discove
 CICD relies on version control.
 Workflows are usually triggered by events, such as merging to the main branch happening on the verson control repository.
 
-# Docker Containers
+# Containers
 
 Nowadays software is often distributed or deployed using containers.
 These containers contain every dependency an application needs and can run anywhere.
