@@ -98,12 +98,12 @@ Workflows are usually triggered by events, such as merging to the main branch ha
 
 Nowadays software is often distributed or deployed using containers.
 These containers contain every dependency an application needs and can run anywhere.
-This is especially useful in applications that run as a service on a cloud provider such as Google or Amazon Web Services where it is not known before hand where an application will run.
+This is especially useful for applications that run as a service on a cloud provider such as Google or Amazon Web Services where it is not known beforehand where an application will run.
 These containers are light weight operating system images in which the application is stored including everything it needs.
-To build these container images, CI/CD is extremely useful as it can be automated as explained below in the section explaining pipelines and workflows.
-Running applications in containers tends to enforce decoupling from external dependencies and communicate to external services through well defined and stable interfaces.
+CI/CD is extremely useful for automatically building such container images, as explained below in the section explaining pipelines and workflows.
+Running applications in containers tends to enforce decoupling from external dependencies and communicating to external services through well defined and stable interfaces.
 Building and distributing containers is generally done using [docker](https://www.docker.com) but there are others such as [podman](https://podman.io/)
-
+You can find more information about containers [here](https://book.the-turing-way.org/reproducible-research/renv/renv-containers.html).
 # Pipelines or workflows
 
 > A CI/CD pipeline is an automated process utilized by software development teams to streamline the creation, testing and deployment of applications. -- [gitlab.com][6]
@@ -483,8 +483,7 @@ That's it! Package published!
 
 ## Considerations
 
-CI/CD pipelines are not very suitable if your tests requires a lot of static data.
+CI/CD pipelines are not very suitable if your tests require a lot of static data.
 Running large integration tests inside a CI/CD pipeline is thus not recommended as there is generally limited space and time in CI/CD pipelines.
 Writing small and fast unit tests that run automatically inside CI/CD pipelines rather than large integration tests is recommended.
-It is therefore helpful to practice sotware engineering best practices such as decoupling.
-Decoupling enables testable code.
+It is therefore helpful to practice software engineering best practices such as decoupling, since that will lead to more easily testable code.
