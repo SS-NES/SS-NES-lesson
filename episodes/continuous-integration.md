@@ -491,3 +491,7 @@ It is therefore helpful to practice software engineering best practices such as 
 Larger integration tests can still be done in CI/CD as long as they don't require more than a few hundred megabytes of space and can complete within say 30 minutes.
 Check the resource limits your CI/CD infrastructure provider (e.g. github or gitlab) imposes on CI/CD pipelines.
 If you expect your tests to require more time and space than the CI/CD platform of you choice allows, consider alternative approaches such as [blue/green deployments](https://en.wikipedia.org/wiki/Blue%E2%80%93green_deployment).
+Another alternative is to host your own pipeline runners that can be associated with your project on github[9] or gitlab[10].
+
+[9]: https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners
+[10]: https://gitlab.com/gitlab-org/gitlab-foss/-/blob/v17.5.0/doc/tutorials/create_register_first_runner/index.md
