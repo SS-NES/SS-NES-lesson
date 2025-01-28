@@ -410,7 +410,7 @@ reinforce the objectives.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Output </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -437,7 +437,7 @@ reinforce the objectives.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -881,7 +881,7 @@ any links that you are not going to use.
 </ul>
 </div></section><section id="aio-continuous-integration"><p>Content from <a href="continuous-integration.html">Continuous Integration</a></p>
 <hr>
-<p>Last updated on 2024-12-04 |
+<p>Last updated on 2025-01-28 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/continuous-integration.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1017,6 +1017,25 @@ to fix.</li>
 events, such as merging to the main branch happening on the verson
 control repository.</p>
 </div>
+</div>
+<div class="section level1">
+<h1 id="containers">Containers<a class="anchor" aria-label="anchor" href="#containers"></a>
+</h1>
+<p>Nowadays software is often distributed or deployed using containers.
+These containers contain every dependency an application needs and can
+run anywhere. This is especially useful for applications that run as a
+service on a cloud provider such as Google or Amazon Web Services where
+it is not known beforehand where an application will run. These
+containers are light weight operating system images in which the
+application is stored including everything it needs. CI/CD is extremely
+useful for automatically building such container images, as explained
+below in the section explaining pipelines and workflows. Running
+applications in containers tends to enforce decoupling from external
+dependencies and communicating to external services through well defined
+and stable interfaces. Building and distributing containers is generally
+done using <a href="https://www.docker.com" class="external-link">docker</a> but there are
+others such as <a href="https://podman.io/" class="external-link">podman</a> You can find more
+information about containers <a href="https://book.the-turing-way.org/reproducible-research/renv/renv-containers.html" class="external-link">here</a>.</p>
 </div>
 <div class="section level1">
 <h1 id="pipelines-or-workflows">Pipelines or workflows<a class="anchor" aria-label="anchor" href="#pipelines-or-workflows"></a>
@@ -1416,11 +1435,32 @@ workflow. Then click on the workflow (it has the title of the
 bottom “release-dists” link is provided. Click on that to download the
 package.</p>
 <p>That’s it! Package published!</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="considerations">Considerations<a class="anchor" aria-label="anchor" href="#considerations"></a>
+</h2>
+<p>CI/CD pipelines are not very suitable if your tests require a lot of
+static data. Running large integration tests inside a CI/CD pipeline is
+thus not recommended as there is generally limited space and time in
+CI/CD pipelines. Writing small and fast unit tests that run
+automatically inside CI/CD pipelines rather than large integration tests
+is recommended. It is therefore helpful to practice software engineering
+best practices such as decoupling, since that will lead to more easily
+testable code. Larger integration tests can still be done in CI/CD as
+long as they don’t require more than a few hundred megabytes of space
+and can complete within say 30 minutes. Check the resource limits your
+CI/CD infrastructure provider (e.g. github or gitlab) imposes on CI/CD
+pipelines. If you expect your tests to require more time and space than
+the CI/CD platform of you choice allows, consider alternative approaches
+such as <a href="https://en.wikipedia.org/wiki/Blue%E2%80%93green_deployment" class="external-link">blue/green
+deployments</a>. Another alternative is to host your own pipeline
+runners that can be associated with your project on github<a href="https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners" class="external-link">9</a>
+or gitlab<a href="https://gitlab.com/gitlab-org/gitlab-foss/-/blob/v17.5.0/doc/tutorials/create_register_first_runner/index.md" class="external-link">10</a>.</p>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-</div>
 </div>
 </div></section>
 </div>
@@ -1469,7 +1509,7 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/aio.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/aio.html",
-  "dateCreated": "2025-01-22",
+  "dateCreated": "2025-01-28",
   "dateModified": "2025-01-28",
   "datePublished": "2025-01-28"
 }
