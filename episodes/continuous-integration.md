@@ -94,6 +94,17 @@ It also enables the developer to run unit testing in an automated way to discove
 CICD relies on version control.
 Workflows are usually triggered by events, such as merging to the main branch happening on the verson control repository.
 
+# Containers
+
+Nowadays software is often distributed or deployed using containers.
+These containers contain every dependency an application needs and can run anywhere.
+This is especially useful for applications that run as a service on a cloud provider such as Google or Amazon Web Services where it is not known beforehand where an application will run.
+These containers are light weight operating system images in which the application is stored including everything it needs.
+CI/CD is extremely useful for automatically building such container images, as explained below in the section explaining pipelines and workflows.
+Running applications in containers tends to enforce decoupling from external dependencies and communicating to external services through well defined and stable interfaces.
+Building and distributing containers is generally done using [docker](https://www.docker.com) but there are others such as [podman](https://podman.io/)
+You can find more information about containers [here](https://book.the-turing-way.org/reproducible-research/renv/renv-containers.html).
+
 # Pipelines or workflows
 
 > A CI/CD pipeline is an automated process utilized by software development teams to streamline the creation, testing and deployment of applications. -- [gitlab.com][6]
@@ -470,3 +481,17 @@ A small graph is shown and at the bottom "release-dists" link is provided.
 Click on that to download the package.
 
 That's it! Package published!
+
+## Considerations
+
+CI/CD pipelines are not very suitable if your tests require a lot of static data.
+Running large integration tests inside a CI/CD pipeline is thus not recommended as there is generally limited space and time in CI/CD pipelines.
+Writing small and fast unit tests that run automatically inside CI/CD pipelines rather than large integration tests is recommended.
+It is therefore helpful to practice software engineering best practices such as decoupling, since that will lead to more easily testable code.
+Larger integration tests can still be done in CI/CD as long as they don't require more than a few hundred megabytes of space and can complete within say 30 minutes.
+Check the resource limits your CI/CD infrastructure provider (e.g. github or gitlab) imposes on CI/CD pipelines.
+If you expect your tests to require more time and space than the CI/CD platform of you choice allows, consider alternative approaches such as [blue/green deployments](https://en.wikipedia.org/wiki/Blue%E2%80%93green_deployment).
+Another alternative is to host your own pipeline runners that can be associated with your project on github[9] or gitlab[10].
+
+[9]: https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners
+[10]: https://gitlab.com/gitlab-org/gitlab-foss/-/blob/v17.5.0/doc/tutorials/create_register_first_runner/index.md
