@@ -232,3 +232,10 @@ In the previous parts we have looked at quite a few different types of test with
 - [the turing way](https://book.the-turing-way.org/reproducible-research/testing)
 - [Behaviour driven development with Gherkin syntax](https://behave.readthedocs.io/en/latest/tutorial/)
 - [testing pyramid vs honeycomb testing](https://engineering.atspotify.com/2018/01/testing-of-microservices/)
+
+
+> ## `Warnings`
+>
+> Tests should never change unless you add a new feature.
+{: .caution}
+
