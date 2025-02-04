@@ -28,7 +28,16 @@ exercises: 0
 
 # Introduction
 
-In this episode we are going to take a look at a few different types of automated testing. We will also see how we can use code coverage the increase our confidence that everything still works when we make a change to the code. There is an assumed base of having worked through the material on [this website](https://coderefinery.github.io/testing/motivation/).
+:::::::::::::::::::::::::::::::::::::::::: spoiler
+
+## Expected Knowledge
+
+- The basic testing skills as can be learned on [this website](https://coderefinery.github.io/testing/motivation/)
+- Know how to use Python decorators. Knowledge on creating and then using them can be found [here](https://realpython.com/primer-on-python-decorators/#python-functions), but creation knowledge is not required!
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+In this episode we are going to take a look at a few different types of automated testing. We will also see how we can use code coverage the increase our confidence that everything still works when we make a change to the code.
 
 
 # 1. Improve testing
