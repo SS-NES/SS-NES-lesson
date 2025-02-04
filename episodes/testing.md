@@ -69,6 +69,54 @@ def test_get_english_headline_low_temparature():
     assert _get_english_headline({"onset": onset, "phenomenon": phenomenon}) == expected
 ```
 
+```R
+library(testthat)
+source("sourcecode.R")  # Assuming _get_english_headline is defined in sourcecode.R
+
+# Test for snow-ice headline
+test_that("test generation of english headline for snow-ice", {
+  onset <- "2024-12-09T11:31:14Z"
+  phenomenon <- "snow-ice"
+  expected <- "Monday 9 December: chance of snow/road icing"
+  
+  result <- _get_english_headline(list(onset = onset, phenomenon = phenomenon))
+  expect_equal(result, expected)
+})
+
+# Test for low temperature headline
+test_that("test generation of english headline for low temperature", {
+  onset <- "2024-12-09T11:31:14Z"
+  phenomenon <- "snow-ice"
+  expected <- "Saturday 4 January: chance of cold"
+  
+  result <- _get_english_headline(list(onset = onset, phenomenon = phenomenon))
+  expect_equal(result, expected)
+})
+```
+
+```julia
+using Test
+include("sourcecode.jl")  # Assuming _get_english_headline is defined in sourcecode.jl
+
+# Test for snow-ice headline
+@testset "test generation of english headline for snow-ice" begin
+    onset = "2024-12-09T11:31:14Z"
+    phenomenon = "snow-ice"
+    expected = "Monday 9 December: chance of snow/road icing"
+    result = _get_english_headline(Dict("onset" => onset, "phenomenon" => phenomenon))
+    @test result == expected
+end
+
+# Test for low-temperature headline
+@testset "test generation of english headline for low-temperature" begin
+    onset = "2025-01-04T00:00:00Z"
+    phenomenon = "low-temperature"
+    expected = "Saturday 4 January: chance of cold"
+    result = _get_english_headline(Dict("onset" => onset, "phenomenon" => phenomenon))
+    @test result == expected
+end
+```
+
 When writing the same example with parameterization it looks like this:
 
 ```python
@@ -94,6 +142,45 @@ import pytest
 def test_get_english_headline(onset, phenomenon, expected):
     """test generation of english headline"""
     assert _get_english_headline({"onset": onset, "phenomenon": phenomenon}) == expected
+```
+
+```R
+library(testthat)
+source("sourcecode.R")  # Assuming _get_english_headline is defined in sourcecode.R
+
+# Define test cases
+test_cases <- list(
+  list(onset = "2024-12-09T11:31:14Z", phenomenon = "snow-ice", expected = "Monday 9 December: chance of snow/road icing"),
+  list(onset = "2025-01-04T00:00:00Z", phenomenon = "low-temperature", expected = "Saturday 4 January: chance of cold")
+)
+
+# Test function
+test_that("test generation of english headline", {
+  for (case in test_cases) {
+    result <- _get_english_headline(list(onset = case$onset, phenomenon = case$phenomenon))
+    expect_equal(result, case$expected)
+  }
+})
+```
+
+
+```julia
+using Test
+include("sourcecode.jl")  # Assuming _get_english_headline is defined in sourcecode.jl
+
+# Define test cases
+test_cases = [
+    (onset = "2024-12-09T11:31:14Z", phenomenon = "snow-ice", expected = "Monday 9 December: chance of snow/road icing"),
+    (onset = "2025-01-04T00:00:00Z", phenomenon = "low-temperature", expected = "Saturday 4 January: chance of cold")
+]
+
+# Run tests
+@testset "test generation of english headline" begin
+    for case in test_cases
+        result = _get_english_headline(Dict("onset" => case.onset, "phenomenon" => case.phenomenon))
+        @test result == case.expected
+    end
+end
 ```
 
 As you can see even the expected result is now an input of the test. We can use the ids parameter to give a test a name. With this name you can also run the test for only one of the ids.
