@@ -28,7 +28,16 @@ exercises: 0
 
 # Introduction
 
-In this episode we are going to take a look at a few different types of automated testing. We will also see how we can use code coverage the increase our confidence that everything still works when we make a change to the code. There is an assumed base of having worked through the material on [this website](https://coderefinery.github.io/testing/motivation/).
+:::::::::::::::::::::::::::::::::::::::::: spoiler
+
+## Expected Knowledge
+
+- The basic testing skills as can be learned on [this website](https://coderefinery.github.io/testing/motivation/)
+- Know how to use Python decorators. Knowledge on creating and then using them can be found [here](https://realpython.com/primer-on-python-decorators/#python-functions), but creation knowledge is not required!
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+In this episode we are going to take a look at a few different types of automated testing. We will also see how we can use code coverage the increase our confidence that everything still works when we make a change to the code.
 
 
 # 1. Improve testing
@@ -39,9 +48,81 @@ What is code coverage? Code coverage is the percentage of the research / product
 
 ## Add parameterized tests
 
-When writing tests it sometimes happens that you want a lot of tests for the same function. You could write a lot of test functions with the same setup and when calling the function under test some different parameters. A cleaner way where you have to maintain less code afterwards to do this is by using paramterized tests. With this you add the different parameters as inputs to you test function. An example of this looks like this:
+To prevent duplication of code you could use parameterized tests. An example without parameterized tests looks like this:
 
 ```python
+from sourcecode import _get_english_headline
+import pytest
+
+def test_get_english_headline_snow_ice():
+    """test generation of english headline"""
+    onset = "2024-12-09T11:31:14Z"
+    phenomenon=   "snow-ice"
+    expected =  "Monday 9 December: chance of snow/road icing"
+    assert _get_english_headline({"onset": onset, "phenomenon": phenomenon}) == expected
+
+def test_get_english_headline_low_temparature():
+    """test generation of english headline"""
+    onset = "2024-12-09T11:31:14Z"
+    phenomenon= "snow-ice"
+    expected = "Saturday 4 January: chance of cold"
+    assert _get_english_headline({"onset": onset, "phenomenon": phenomenon}) == expected
+```
+
+```R
+library(testthat)
+source("sourcecode.R")  # Assuming _get_english_headline is defined in sourcecode.R
+
+# Test for snow-ice headline
+test_that("test generation of english headline for snow-ice", {
+  onset <- "2024-12-09T11:31:14Z"
+  phenomenon <- "snow-ice"
+  expected <- "Monday 9 December: chance of snow/road icing"
+  
+  result <- _get_english_headline(list(onset = onset, phenomenon = phenomenon))
+  expect_equal(result, expected)
+})
+
+# Test for low temperature headline
+test_that("test generation of english headline for low temperature", {
+  onset <- "2024-12-09T11:31:14Z"
+  phenomenon <- "snow-ice"
+  expected <- "Saturday 4 January: chance of cold"
+  
+  result <- _get_english_headline(list(onset = onset, phenomenon = phenomenon))
+  expect_equal(result, expected)
+})
+```
+
+```julia
+using Test
+include("sourcecode.jl")  # Assuming _get_english_headline is defined in sourcecode.jl
+
+# Test for snow-ice headline
+@testset "test generation of english headline for snow-ice" begin
+    onset = "2024-12-09T11:31:14Z"
+    phenomenon = "snow-ice"
+    expected = "Monday 9 December: chance of snow/road icing"
+    result = _get_english_headline(Dict("onset" => onset, "phenomenon" => phenomenon))
+    @test result == expected
+end
+
+# Test for low-temperature headline
+@testset "test generation of english headline for low-temperature" begin
+    onset = "2025-01-04T00:00:00Z"
+    phenomenon = "low-temperature"
+    expected = "Saturday 4 January: chance of cold"
+    result = _get_english_headline(Dict("onset" => onset, "phenomenon" => phenomenon))
+    @test result == expected
+end
+```
+
+When writing the same example with parameterization it looks like this:
+
+```python
+from sourcecode import _get_english_headline
+import pytest
+
 @pytest.mark.parametrize(
     ("onset", "phenomenon", "expected"),
     [
@@ -56,14 +137,54 @@ When writing tests it sometimes happens that you want a lot of tests for the sam
             "Saturday 4 January: chance of cold",
         ),
     ],
-    ids=["special_case", "normal_case"],
+    ids=["snow_ice", "low_temperature"],
 )
-def test_get_english_headline(onset: str, phenomenon: str, expected: str) -> None:
+def test_get_english_headline(onset, phenomenon, expected):
     """test generation of english headline"""
     assert _get_english_headline({"onset": onset, "phenomenon": phenomenon}) == expected
 ```
 
+```R
+library(testthat)
+source("sourcecode.R")  # Assuming _get_english_headline is defined in sourcecode.R
+
+# Define test cases
+test_cases <- list(
+  list(onset = "2024-12-09T11:31:14Z", phenomenon = "snow-ice", expected = "Monday 9 December: chance of snow/road icing"),
+  list(onset = "2025-01-04T00:00:00Z", phenomenon = "low-temperature", expected = "Saturday 4 January: chance of cold")
+)
+
+# Test function
+test_that("test generation of english headline", {
+  for (case in test_cases) {
+    result <- _get_english_headline(list(onset = case$onset, phenomenon = case$phenomenon))
+    expect_equal(result, case$expected)
+  }
+})
+```
+
+
+```julia
+using Test
+include("sourcecode.jl")  # Assuming _get_english_headline is defined in sourcecode.jl
+
+# Define test cases
+test_cases = [
+    (onset = "2024-12-09T11:31:14Z", phenomenon = "snow-ice", expected = "Monday 9 December: chance of snow/road icing"),
+    (onset = "2025-01-04T00:00:00Z", phenomenon = "low-temperature", expected = "Saturday 4 January: chance of cold")
+]
+
+# Run tests
+@testset "test generation of english headline" begin
+    for case in test_cases
+        result = _get_english_headline(Dict("onset" => case.onset, "phenomenon" => case.phenomenon))
+        @test result == case.expected
+    end
+end
+```
+
 As you can see even the expected result is now an input of the test. We can use the ids parameter to give a test a name. With this name you can also run the test for only one of the ids.
+When the _get_english_headline is updated only the code in the parameterized example should break not multiple functions like in the original.
 For more information on parameterized tests you can read [this how-to guide](https://docs.pytest.org/en/stable/how-to/parametrize.html#pytest-mark-parametrize).
 
 # 2. Testing a unit of software without having to instantiate all the code
@@ -232,3 +353,10 @@ In the previous parts we have looked at quite a few different types of test with
 - [the turing way](https://book.the-turing-way.org/reproducible-research/testing)
 - [Behaviour driven development with Gherkin syntax](https://behave.readthedocs.io/en/latest/tutorial/)
 - [testing pyramid vs honeycomb testing](https://engineering.atspotify.com/2018/01/testing-of-microservices/)
+
+
+> ## `Warnings`
+>
+> Tests should never change unless you add a new feature.
+{: .caution}
+
