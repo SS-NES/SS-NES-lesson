@@ -20,11 +20,7 @@ exercises: 5
 
 ## What is the SMP tool we have developed?
 
-The SMP Tool is an online service and will be provided to you either by your organization or a third party. It is a questionnaire which will provide you with an SMP upon completion.
-
-It starts out with a few questions relevant for projects, like the general goal of the project. Then you will be presented with a few questions that define the scope of your project. These are a "decision tree" that can switch on or off many of the following "content questions" which tailor the content of the SMP to the scope of your project.
-
-After you complete the questionnaire you can download different versions of the SMP for your project.
+The SMP Tool is an online service and will be provided to you either by your organization or a third party. It is a questionnaire enriched with helpful resources which will provide you with an SMP upon completion. At the end of the questionnaire, you will be able to download different versions of the SMP for your project.
 
 ## How to Answer the SMP Questions
 
@@ -39,7 +35,9 @@ The SMP Tool questions themselves will have detailed explanations and examples t
 
 ### General Questions
 
-TODO
+In the section for "General" questions, you will be asked to fill in the details of your project, such as the name of your software, the participating members, the owner of the Intellectual Property, and the Organization where you will be developing your software, among other questions. This is generally the only section that you can fill in at any stage of the project and the one that might see the least amount of changes in the future, save for adding a new team member or organization.
+
+Please make sure that the information given here is accurate and that especially the holder of the Intellectual Property of the software has been verified. More information on this can be found in the tool, but it is always a good idea to check with the legal department of your institution.
 
 ### Decision Tree
 Part of the challenge in filling out a SMP is to understand and define which points in the SMP are relevant for your software. Depending on its scope and the impact you foresee it having, your software might need more attention in some areas of Software Management and less in others. The decision tree in the online questionnaire is meant to help you define what is relevant in the Plan by answering at most four simple questions. The figure below shows how the decision tree works.
