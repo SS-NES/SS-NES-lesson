@@ -31,7 +31,7 @@ SMPs provide value both inside and outside your organization. The things that yo
 - Once a plan has been filled out, it can also be used to give guidance for new team members, thus reducing the time needed for onboarding. 
 - Writing an SMP will guide you through the best practices that you can apply to your software based on the size and scope of your project. Following the best practices outlined in an SMP will make it easier for others to use or cite your software. 
 
-Outside your organization, research funders specifically have become more aware of SMPs and are starting to require them because of all of the above reasons. From the funder perspective, a well thought out SMP also demonstrates the feasibility and reliability of the project. It is thus a good idea to prepare a weel written SMP when submitting a funding proposal.
+Outside your organization, research funders specifically have become more aware of SMPs and are starting to require them because of all of the above reasons. From the funder perspective, a well thought out SMP also demonstrates the feasibility and reliability of the project. It is thus a good idea to prepare a well written SMP when submitting a funding proposal.
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints
