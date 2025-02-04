@@ -58,7 +58,7 @@ When writing tests it sometimes happens that you want a lot of tests for the sam
     ],
     ids=["special_case", "normal_case"],
 )
-def test_get_english_headline(onset: str, phenomenon: str, expected: str) -> None:
+def test_get_english_headline(onset, phenomenon, expected):
     """test generation of english headline"""
     assert _get_english_headline({"onset": onset, "phenomenon": phenomenon}) == expected
 ```
