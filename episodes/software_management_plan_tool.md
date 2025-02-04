@@ -22,7 +22,12 @@ exercises: 5
 
 The answers provided to the questionnaire compose the content of your SMP. The more detail you can provide, the better your SMP will be. Keep in mind, however, that this is a living document evolving with your project and software, so "I don't know yet" can be a perfectly valid answer! It is encouraged to re-visit your SMP when the boundary conditions or the scope of your project becomes clearer or changes over time.
 
-The SMP Tool questions will have detailed explanations and examples to aid the process of filling in the answers. For technical topics you might not yet be familiar with, there are links to resources that can help learning more about them.
+In the tool, you will find three distinct types of questions, which we will discuss in this lecture. These question types are: 
+- "General" questions: Here you will provide the name of your software, the name of the developers, and other general details about your software, 
+- "Decision Tree" questions: These questions help you identify the relevant questions for your software by estimating the impact and number of people dependent on your software,
+- "Content" questions: These questions go into the details of your software management. 
+
+The SMP Tool questions themselves will have detailed explanations and examples to aid the process of filling in the answers. For technical topics you might not yet be familiar with, there are links to resources that can help learning more about them. Therefore, we will focus more on the bigger picture in this lecture and address important topics of discussion first. After this more theoretical part, you will have a chance to try using the Software Management Plan Tool yourself.
 
 ### General Questions
 
