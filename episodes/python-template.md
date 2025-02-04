@@ -4,7 +4,7 @@ teaching: 10
 exercises: 2
 ---
 
-:::::::::::::::::::::::::::::::::::::: questions 
+:::::::::::::::::::::::::::::::::::::: questions
 
 - How can you quickly set up a new Python repository that follows best practices?
 
@@ -26,14 +26,12 @@ starting a new project is always a good idea. Templates let you easily make
 use of the latest and greatest in best practices, without having to reinvent
 the wheel for every project.
 
-For people new to software development, this means you can trust in the prior
-work of many other experienced people, and only have to focus on those parts
-that are particularly relevant to your project. For experienced developers it
-means you don't have to manually copy over the boilerplate code from a previous
-project. This means you don't have to replace all your old values manually and
-won't have a chance to accidentally forget some of them, while also keeping you
-easily up to date with the latest and greatest instead of remaining stuck at
-a previous point in time.
+As someone who is new to programming, employing a template can help you to setup
+your first projects and help you adhere to coding standards such that your
+software can be understood by others. In general employing templates saves time
+and helps to prevent confusion when copy pasting from old repositories. E.g.
+parameters and specific configurations are easily overlooked and not being
+edited.
 
 In both cases, using a trusted template will save you time, worries and make
 sure your new projects are never outdated from the start.
@@ -56,7 +54,7 @@ pipx install copier
 
 Now you can use `copier` as a standalone tool to create new projects.
 
-::::::::::::::::::::::::::::::::::::: challenge 
+::::::::::::::::::::::::::::::::::::: challenge
 
 ## Challenge 1: Use the NLeSC Python Template
 
@@ -96,10 +94,10 @@ project to make sure everything stays clean:
 rm -rf path/to/destination
 ```
 
-:::::::::::::::::::::::: solution 
+:::::::::::::::::::::::: solution
 
 ```bash
-copier copy --answer-file smp_answers.yaml gh:nlesc/python-template path/to/destination
+copier copy --answers-file smp_answers.yaml gh:nlesc/python-template path/to/destination
 ```
 
 :::::::::::::::::::::::::::::::::
@@ -130,7 +128,7 @@ That's all folks!
 
 
 
-::::::::::::::::::::::::::::::::::::: keypoints 
+::::::::::::::::::::::::::::::::::::: keypoints
 
 - Use a template to implement best practices for you from the start
 - Create a new repository using `copier copy gh:nlesc/python-template path/to/destination`
