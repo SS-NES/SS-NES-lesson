@@ -48,9 +48,33 @@ What is code coverage? Code coverage is the percentage of the research / product
 
 ## Add parameterized tests
 
-When writing tests it sometimes happens that you want a lot of tests for the same function. You could write a lot of test functions with the same setup and when calling the function under test some different parameters. A cleaner way where you have to maintain less code afterwards to do this is by using paramterized tests. With this you add the different parameters as inputs to you test function. An example of this looks like this:
+To prevent duplication of code you could use parameterized tests. An example without parameterized tests looks like this:
 
 ```python
+from sourcecode import _get_english_headline
+import pytest
+
+def test_get_english_headline_snow_ice():
+    """test generation of english headline"""
+    onset = "2024-12-09T11:31:14Z"
+    phenomenon=   "snow-ice"
+    expected =  "Monday 9 December: chance of snow/road icing"
+    assert _get_english_headline({"onset": onset, "phenomenon": phenomenon}) == expected
+
+def test_get_english_headline_low_temparature():
+    """test generation of english headline"""
+    onset = "2024-12-09T11:31:14Z"
+    phenomenon= "snow-ice"
+    expected = "Saturday 4 January: chance of cold"
+    assert _get_english_headline({"onset": onset, "phenomenon": phenomenon}) == expected
+```
+
+When writing the same example with parameterization it looks like this:
+
+```python
+from sourcecode import _get_english_headline
+import pytest
+
 @pytest.mark.parametrize(
     ("onset", "phenomenon", "expected"),
     [
@@ -65,7 +89,7 @@ When writing tests it sometimes happens that you want a lot of tests for the sam
             "Saturday 4 January: chance of cold",
         ),
     ],
-    ids=["special_case", "normal_case"],
+    ids=["snow_ice", "low_temperature"],
 )
 def test_get_english_headline(onset, phenomenon, expected):
     """test generation of english headline"""
@@ -73,6 +97,7 @@ def test_get_english_headline(onset, phenomenon, expected):
 ```
 
 As you can see even the expected result is now an input of the test. We can use the ids parameter to give a test a name. With this name you can also run the test for only one of the ids.
+When the _get_english_headline is updated only the code in the parameterized example should break not multiple functions like in the original.
 For more information on parameterized tests you can read [this how-to guide](https://docs.pytest.org/en/stable/how-to/parametrize.html#pytest-mark-parametrize).
 
 # 2. Testing a unit of software without having to instantiate all the code
