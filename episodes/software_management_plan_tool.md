@@ -18,6 +18,14 @@ exercises: 5
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+## What is the SMP tool we have developed?
+
+The SMP Tool is an online service and will be provided to you either by your organization or a third party. It is a questionnaire which will provide you with an SMP upon completion.
+
+It starts out with a few questions relevant for projects, like the general goal of the project. Then you will be presented with a few questions that define the scope of your project. These are a "decision tree" that can switch on or off many of the following "content questions" which tailor the content of the SMP to the scope of your project.
+
+After you complete the questionnaire you can download different versions of the SMP for your project.
+
 ## How to Answer the SMP Questions
 
 The answers provided to the questionnaire compose the content of your SMP. The more detail you can provide, the better your SMP will be. Keep in mind, however, that this is a living document evolving with your project and software, so "I don't know yet" can be a perfectly valid answer! It is encouraged to re-visit your SMP when the boundary conditions or the scope of your project becomes clearer or changes over time.
@@ -129,10 +137,73 @@ The project is still internal and will stay internal for a longer period of time
 
 :::::::::::::::::::::::::::::::::
 
+## Output Files
+
+You can download your SMP in three different variants. The first one is a human-readable Word document. For many projects this is all that is needed.
+
+The second variant is a machine-readable copy of _all_ the provided answers in JSON format. This can be used as a backup of the provided data and for custom processing in your own workflows.
+
+The third and last variant contains machine-readable SMP information in YAML format that can be used as input for the [NLeSC Python Template](https://github.com/NLeSC/python-template) to start a new software project.
+
+## Exercises:
+
+The SMP Tool provides you with several output files for different purposes. What benefit can they give you?
+
+
+### Challenge 1: How could you use the machine-readable JSON output?
+
+
+```r
+The machine-readable JSON output contains all the supplied answers. There is no ready-made tooling yet to consume it, but you can create your own. For which purposes could this be useful?
+```
+
+:::::::::::::::::::::::: solution
+
+```
+1) The machine-readable JSON output is a backup of all your supplied answers. You can use it when you re-visit the SMP Tool in the future to incorporate changes in boundary conditions or project scope.
+2) Having a machine-readable SMP enables you to consume the data in other tools. This could be a compliance checker that tests your projects for applied best practices, a tool that charts license usage across projects, or a script that maps authors to projects.
+```
+
+:::::::::::::::::::::::::::::::::
+
+### Challenge 2: How can you use the machine-readable YAML output?
+
+
+```r
+The YAML output can be consumed by the [NLeSC Python Template](https://github.com/NLeSC/python-template) for starting a Python project. What is the workflow here? Read up about the template and understand how it can help your project.
+```
+
+:::::::::::::::::::::::: solution
+ 
+```
+TODO
+```
+
+:::::::::::::::::::::::::::::::::
+
+### Challenge 3: Which of the output files would be useful for your own project?
+
+
+```r
+Imagine how you could use the different output files for your own project.
+```
+
+:::::::::::::::::::::::: solution
+ 
+```
+Free discussion
+```
+
+:::::::::::::::::::::::::::::::::
+
 ::::::::::::::::::::::::::::::::::::: keypoints
 
 - The SMP Tool uses a decision tree to determine the relevant content questions
   - Simple software projects require less information
+- The SMP Tool creates three output files
+  - A human-readable SMP
+  - A machine-readable SMP (JSON dump of all answers) for custom processing
+  - Machine-readable SMP information as input for the [NLeSC Python Template](https://github.com/NLeSC/python-template) (YAML format)
 - TODO
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
