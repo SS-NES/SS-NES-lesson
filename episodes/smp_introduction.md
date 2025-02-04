@@ -7,15 +7,16 @@ exercises: 10
 :::::::::::::::::::::::::::::::::::::: questions
 
 - What is a Software Management Plan (SMP)?
-- What is the SMP Tool?
+- Why is an SMP important?
+- How is an SMP useful?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Understand the role of a Software Management Plan (SMP)
-- Explain how the SMP Tool facilitates creating an SMP
-- Outline the workflow of the SMP
+- Understand the role of a Software Management Plan (SMP).
+- Understand that the stage and scope of your software can determine that some parts of the SMP are not relevant (yet).
+- Understand that no matter the scope of your software, an SMP is always relevant.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
