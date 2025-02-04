@@ -244,7 +244,7 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="introduction.html">1. Using Markdown</a>
+        <a href="smp_introduction.html">1. Introduction</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -332,12 +332,12 @@
     <main id="main-content" class="main-content"><div class="container lesson-content">
         
         
-<section id="aio-introduction"><p>Content from <a href="introduction.html">Using Markdown</a></p>
+<section id="aio-smp_introduction"><p>Content from <a href="smp_introduction.html">Introduction</a></p>
 <hr>
-<p>Last updated on 2024-10-14 |
+<p>Last updated on 2025-02-04 |
 
-        <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
-<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
+        <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/smp_introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 20 minutes</p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -349,8 +349,8 @@
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>How do you write a lesson using Markdown and
-<a href="https://carpentries.github.io/sandpaper/" class="external-link">sandpaper</a>?</li>
+<li>What is a Software Management Plan (SMP)?</li>
+<li>What is the SMP Tool?</li>
 </ul>
 </div>
 </div>
@@ -360,9 +360,9 @@
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Explain how to use markdown with The Carpentries Workbench</li>
-<li>Demonstrate how to include pieces of code, figures, and nested
-challenge blocks</li>
+<li>Understand the role of a Software Management Plan (SMP)</li>
+<li>Explain how the SMP Tool facilitates creating an SMP</li>
+<li>Outline the workflow of the SMP</li>
 </ul>
 </div>
 </div>
@@ -372,126 +372,120 @@ challenge blocks</li>
 <section><h2 class="section-heading" id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <hr class="half-width">
-<p>This is a lesson created via The Carpentries Workbench. It is written
-in <a href="https://pandoc.org/MANUAL.txt" class="external-link">Pandoc-flavored Markdown</a>
-for static files and <a href="https://rmarkdown.rstudio.com/" class="external-link">R
-Markdown</a> for dynamic files that can render code into output. Please
-refer to the <a href="https://carpentries.github.io/sandpaper-docs/" class="external-link">Introduction to The
-Carpentries Workbench</a> for full documentation.</p>
-<p>What you need to know is that there are three sections required for a
-valid Carpentries lesson:</p>
-<ol style="list-style-type: decimal">
-<li>
-<code>questions</code> are displayed at the beginning of the episode
-to prime the learner for the content.</li>
-<li>
-<code>objectives</code> are the learning objectives for an episode
-displayed with the questions.</li>
-<li>
-<code>keypoints</code> are displayed at the end of the episode to
-reinforce the objectives.</li>
-</ol>
-<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
-  <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
-</button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
-<div class="accordion-body">
-<p>Inline instructor notes can help inform instructors of timing
-challenges associated with the lessons. They appear in the “Instructor
-View”</p>
+<p>A Software Management Plan (SMP) is a formal document explaining how
+software is written and managed both during and after a research
+project. It is a living document and will evolve with the boundary
+conditions of your project and software. While it is encouraged to write
+an SMP <em>before</em> starting to develop code, it is never too late to
+create one for existing projects.</p>
+<div class="section level3">
+<h3 id="importance">Importance<a class="anchor" aria-label="anchor" href="#importance"></a>
+</h3>
+<p>SMPs provide value both inside and outside your organization. It
+encourages you to think about the roles and responsibilities within the
+project and gives guidance for new team members. Writing an SMP will
+guide you through the best practices that you can apply to your software
+based on the size and scope of your project. Following the best
+practices outlined in an SMP will make it easier for others to use or
+cite your software. For all of the above reasons some research funders
+start to require an SMP to be included in proposals.</p>
 </div>
-</div>
-</div>
-</div>
-<div id="challenge-1-can-you-do-it" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<div id="challenge-1-can-you-do-it" class="callout-inner">
-<h3 class="callout-title">Challenge 1: Can you do it?</h3>
-<div class="callout-content">
-<p>What is the output of this command?</p>
+</section><section><h2 class="section-heading" id="general-workflow">General Workflow<a class="anchor" aria-label="anchor" href="#general-workflow"></a>
+</h2>
+<hr class="half-width">
+<p>The SMP Tool is an online service and will be provided to you either
+by your organization or a third party. It is a questionnaire which will
+provide you with an SMP upon completion.</p>
+<p>It starts out with a few questions relevant for projects, like the
+general goal of the project. Then you will be presented with a few
+questions that define the scope of your project. These are a “decision
+tree” that can switch on or off many of the following “content
+questions” which tailor the content of the SMP to the scope of your
+project.</p>
+<p>After you complete the questionnaire you can download different
+versions of the SMP for your project.</p>
+</section><section><h2 class="section-heading" id="output-files">Output Files<a class="anchor" aria-label="anchor" href="#output-files"></a>
+</h2>
+<hr class="half-width">
+<p>You can download your SMP in three different variants. The first one
+is a human-readable Word document. For many projects this is all that is
+needed.</p>
+<p>The second variant is a machine-readable copy of <em>all</em> the
+provided answers in JSON format. This can be used as a backup of the
+provided data and for custom processing in your own workflows.</p>
+<p>The third and last variant contains machine-readable SMP information
+in YAML format that can be used as input for the <a href="https://github.com/NLeSC/python-template" class="external-link">NLeSC Python
+Template</a> to start a new software project.</p>
+</section><section><h2 class="section-heading" id="exercises">Exercises:<a class="anchor" aria-label="anchor" href="#exercises"></a>
+</h2>
+<hr class="half-width">
+<p>The SMP Tool provides you with several output files for different
+purposes. What benefit can they give you?</p>
+<div class="section level3">
+<h3 id="challenge-1-how-could-you-use-the-machine-readable-json-output">Challenge 1: How could you use the machine-readable JSON
+output?<a class="anchor" aria-label="anchor" href="#challenge-1-how-could-you-use-the-machine-readable-json-output"></a>
+</h3>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">paste</span><span class="op">(</span><span class="st">"This"</span>, <span class="st">"new"</span>, <span class="st">"lesson"</span>, <span class="st">"looks"</span>, <span class="st">"good"</span><span class="op">)</span></span></code></pre>
-</div>
-</div>
-</div>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>The machine<span class="sc">-</span>readable JSON output contains all the supplied answers. There is no ready<span class="sc">-</span>made tooling yet to consume it, but you can create your own. For which purposes could this be useful?</span></code></pre>
 </div>
 <div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1"> Output </h4>
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<pre><code>1) The machine-readable JSON output is a backup of all your supplied answers. You can use it when you re-visit the SMP Tool in the future to incorporate changes in boundary conditions or project scope.
+2) Having a machine-readable SMP enables you to consume the data in other tools. This could be a compliance checker that tests your projects for applied best practices, a tool that charts license usage across projects, or a script that maps authors to projects.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="challenge-2-how-can-you-use-the-machine-readable-yaml-output">Challenge 2: How can you use the machine-readable YAML output?<a class="anchor" aria-label="anchor" href="#challenge-2-how-can-you-use-the-machine-readable-yaml-output"></a>
 </h3>
-<pre class="output" tabindex="0"><code>[1] "This new lesson looks good"</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div id="challenge-2-how-do-you-nest-solutions-within-challenge-blocks" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<div id="challenge-2-how-do-you-nest-solutions-within-challenge-blocks" class="callout-inner">
-<h3 class="callout-title">Challenge 2: how do you nest solutions within challenge blocks?</h3>
-<div class="callout-content">
-
-</div>
-</div>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>The YAML output can be consumed by the [NLeSC Python Template](https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>NLeSC<span class="sc">/</span>python<span class="sc">-</span>template) <span class="cf">for</span> starting a Python project. What is the workflow here? Read up about the template and understand how it can help your project.</span></code></pre>
 </div>
 <div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
-<p>You can add a line with at least three colons and a
-<code>solution</code> tag.</p>
+<pre><code><span><span class="va">TODO</span></span></code></pre>
 </div>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a>
-</h2>
-<hr class="half-width">
-<p>You can use standard markdown for static figures with the following
-syntax:</p>
-<p><code>![optional caption that appears below the figure](figure url){alt='alt text for accessibility purposes'}</code></p>
-<figure><img src="https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg" alt="Blue Carpentries hex person logo with no text." class="figure mx-auto d-block"><div class="figcaption">You belong in The Carpentries!</div>
-</figure><div id="callout1" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout</h3>
-<div class="callout-content">
-<p>Callout sections can highlight information.</p>
-<p>They are sometimes used to emphasise particularly important points
-but are also used in some lessons to present “asides”: content that is
-not central to the narrative of the lesson, e.g. by providing the answer
-to a commonly-asked question.</p>
+<div class="section level3">
+<h3 id="challenge-3-which-of-the-output-files-would-be-useful-for-your-own-project">Challenge 3: Which of the output files would be useful for your own
+project?<a class="anchor" aria-label="anchor" href="#challenge-3-which-of-the-output-files-would-be-useful-for-your-own-project"></a>
+</h3>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>Imagine how you could use the different output files <span class="cf">for</span> your own project.</span></code></pre>
 </div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div class="accordion-body">
+<pre><code>Free discussion</code></pre>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="math">Math<a class="anchor" aria-label="anchor" href="#math"></a>
-</h2>
-<hr class="half-width">
-<p>One of our episodes contains <span class="math inline">\(\LaTeX\)</span> equations when describing how to
-create dynamic reports with {knitr}, so we now use mathjax to describe
-this:</p>
-<p><code>$\alpha = \dfrac{1}{(1 - \beta)^2}$</code> becomes: <span class="math inline">\(\alpha = \dfrac{1}{(1 - \beta)^2}\)</span></p>
-<p>Cool, right?</p>
+</div>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -500,14 +494,29 @@ this:</p>
 <h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
-<li>Use <code>.md</code> files for episodes when you want static
-content</li>
-<li>Use <code>.Rmd</code> files for episodes when you need to generate
-output</li>
-<li>Run <code>sandpaper::check_lesson()</code> to identify any issues
-with your lesson</li>
-<li>Run <code>sandpaper::build_lesson()</code> to preview your lesson
-locally</li>
+<li>A SMP is valuable in any stage of your project
+<ul>
+<li>It outlines how the software supports the vision of your
+project</li>
+<li>It encourages you to follow best practices based on the scope of
+your project</li>
+</ul>
+</li>
+<li>The SMP Tool uses a decision tree to determine the relevant content
+questions
+<ul>
+<li>Simple software projects require less information</li>
+</ul>
+</li>
+<li>The SMP Tool creates three output files
+<ul>
+<li>A human-readable SMP</li>
+<li>A machine-readable SMP (JSON dump of all answers) for custom
+processing</li>
+<li>Machine-readable SMP information as input for the <a href="https://github.com/NLeSC/python-template" class="external-link">NLeSC Python
+Template</a> (YAML format)</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -516,6 +525,7 @@ locally</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
+</div>
 </section></section><section id="aio-testing"><p>Content from <a href="testing.html">Intermediate software testing</a></p>
 <hr>
 <p>Last updated on 2024-12-04 |
@@ -1528,7 +1538,7 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/instructor/aio.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/instructor/aio.html",
-  "dateCreated": "2025-01-28",
+  "dateCreated": "2025-02-04",
   "dateModified": "2025-02-04",
   "datePublished": "2025-02-04"
 }
