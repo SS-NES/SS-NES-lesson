@@ -222,7 +222,7 @@ def test_function1():
 ```
 For more information on mocking you can read [this quick guide](https://docs.python.org/3/library/unittest.mock.html#quick-guide).
 
-# 3. Working with external systems during a test
+# 3. How to test database or service connections
 
 When writing code you do not always have the data on your machine. Sometimes you need to download data over http. For this a lot of the time people use the requests library (when you have async code aiohttp is a nice alternative). For your unit test however you don't want to be dependent on the network, because this is unreliable and can have your tests sometimes fail for no reason. One way is to split the http call inside another method and use a fake response when testing that method. The following code calls the german weather opendata platform to get thunderstorm data. The page gets a lot of updates in the data but the format stay's the same. The actual api calls can then be tested inside an integration test and also look at the error handling. More information about integration testing can be found at [the turing way](https://book.the-turing-way.org/reproducible-research/testing/testing-integrationtest).
 
