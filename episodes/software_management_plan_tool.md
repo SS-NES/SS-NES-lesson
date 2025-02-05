@@ -26,10 +26,10 @@ The SMP Tool is an online service and will be provided to you either by your org
 
 The answers provided to the questionnaire compose the content of your SMP. The more detail you can provide, the better your SMP will be. Keep in mind, however, that this is a living document evolving with your project and software, so "I don't know yet" can be a perfectly valid answer! It is encouraged to re-visit your SMP when the boundary conditions or the scope of your project becomes clearer or changes over time.
 
-In the tool, you will find three distinct types of questions, which we will discuss in this lecture. These question types are: 
-- "General" questions: Here you will provide the name of your software, the name of the developers, and other general details about your software, 
+In the tool, you will find three distinct types of questions, which we will discuss in this lecture. These question types are:
+- "General" questions: Here you will provide the name of your software, the name of the developers, and other general details about your software,
 - "Decision Tree" questions: These questions help you identify the relevant questions for your software by estimating the impact and number of people dependent on your software,
-- "Content" questions: These questions go into the details of your software management. 
+- "Content" questions: These questions go into the details of your software management.
 
 The SMP Tool questions themselves will have detailed explanations and examples to aid the process of filling in the answers. For technical topics you might not yet be familiar with, there are links to resources that can help learning more about them. Therefore, we will focus more on the bigger picture in this lecture and address important topics of discussion first. After this more theoretical part, you will have a chance to try using the Software Management Plan Tool yourself.
 
@@ -103,15 +103,15 @@ N.B.: If you have your own example software to do this exercise with, please fee
 ```r
 The software in question are scripts run to extract data from an astronomical image. The scripts identify areas where light/signal is present in the image and extract the measured light spectrum of the pixels for which the signal-to-noise is above a value of 5. The scripts also provide the location of the brightest pixel per object and create easy to read ASCII files to plot the spectrum of the various light sources.
 
-The author of the scripts has decided to store them on a GitLab instance present at their instiute. The GitLab repository is referenced in their paper, should someone want to verify the results obtained with the scripts. These scripts are based on known methods to extract data from an astronomical image. 
+The author of the scripts has decided to store them on a GitLab instance present at their instiute. The GitLab repository is referenced in their paper, should someone want to verify the results obtained with the scripts. These scripts are based on known methods to extract data from an astronomical image.
 ```
 
-:::::::::::::::::::::::: solution 
- 
+:::::::::::::::::::::::: solution
+
 ```
 Depending on if you see verification as a form of reuse or not, two answers are possible, as shown below. The script will not be further modified or expanded by others, so there are not multiple users involved. Question 3 should be the latest point where you answer no.
 
-Either: 
+Either:
 1) Yes 2) Yes 3) No 4) -
 Or:
 1) Yes 2) No 3) - 4) -
@@ -125,7 +125,7 @@ Or:
 ```r
 As a result of an internal project, a software has been developed to track and predict convective cells in the atmosphere (i.e. Thunderstorms). A team of software engineers and other experts is working on this software to expand and better its functionality. The project itself is still ongoing and the software has yet to be published in a repository. Plans for its publication will eventually be discussed at the end of the project.
 ```
-:::::::::::::::::::::::: solution 
+:::::::::::::::::::::::: solution
 
 ```
 The project is still internal and will stay internal for a longer period of time, so the first question is a negative. Questions two and three are yes, because the scope of the project is to reuse the software and multiple people are involved in using and coding the software. Question 4 is no, as a community will most likely only build itself, if the software gets published.
@@ -143,56 +143,28 @@ The second variant is a machine-readable copy of _all_ the provided answers in J
 
 The third and last variant contains machine-readable SMP information in YAML format that can be used as input for the [NLeSC Python Template](https://github.com/NLeSC/python-template) to start a new software project.
 
-## Exercises:
 
-The SMP Tool provides you with several output files for different purposes. What benefit can they give you?
-
-
-### Challenge 1: How could you use the machine-readable JSON output?
-
+### Challenge 3: Why provide the different types of output?
 
 ```r
-The machine-readable JSON output contains all the supplied answers. There is no ready-made tooling yet to consume it, but you can create your own. For which purposes could this be useful?
+The SMP tool provides the final SMP in both human-readable and machine-readable formats.
+Since both are based on the same input given during the questionnaire, consider the differences between these two formats:
+- How would these two formats be different?
+- What is the benefit of providing both different formats instead of just one?
 ```
 
 :::::::::::::::::::::::: solution
 
-```
-1) The machine-readable JSON output is a backup of all your supplied answers. You can use it when you re-visit the SMP Tool in the future to incorporate changes in boundary conditions or project scope.
-2) Having a machine-readable SMP enables you to consume the data in other tools. This could be a compliance checker that tests your projects for applied best practices, a tool that charts license usage across projects, or a script that maps authors to projects.
-```
+1) A human-readable format will include nice layout and formatting to make the contents easy to read by a person.
+   Such formatting information would only make it harder to write a program to read through the information,
+   so it will not be included in the machine-readable format. Instead, it might include some additional metadata
+   that is omitted or shown through formatting compared to the human-readable format.
+2) Each format is meant for a different 'audience', since we want both human and computers/programs to be able to
+   use the information you filled in for the SMP for further processing or analysis. If only one of the two formats
+   was provided, you would need a separate program to convert between the two, which could be error-prone.
 
 :::::::::::::::::::::::::::::::::
 
-### Challenge 2: How can you use the machine-readable YAML output?
-
-
-```r
-The YAML output can be consumed by the [NLeSC Python Template](https://github.com/NLeSC/python-template) for starting a Python project. What is the workflow here? Read up about the template and understand how it can help your project.
-```
-
-:::::::::::::::::::::::: solution
- 
-```
-TODO
-```
-
-:::::::::::::::::::::::::::::::::
-
-### Challenge 3: Which of the output files would be useful for your own project?
-
-
-```r
-Imagine how you could use the different output files for your own project.
-```
-
-:::::::::::::::::::::::: solution
- 
-```
-Free discussion
-```
-
-:::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
