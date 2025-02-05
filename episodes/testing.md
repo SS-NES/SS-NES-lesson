@@ -187,7 +187,7 @@ As you can see even the expected result is now an input of the test. We can use 
 When the _get_english_headline is updated only the code in the parameterized example should break not multiple functions like in the original.
 For more information on parameterized tests you can read [this how-to guide](https://docs.pytest.org/en/stable/how-to/parametrize.html#pytest-mark-parametrize).
 
-# 2. Testing a unit of software without having to instantiate all the code
+# 2. Testing code in isolation
 
 Sometimes it happens that you want to test a function but in that function a lot of complex objects are used (and those objects in turn need other objects...). One way to deal with this is to add those complex objects as input to the function. You can that use this mock to prevent you having to create all those objects yourself.
 In the code bellow we see the complex class being mocked and then given an implementation for when the method is called. This way we don't need to create `input_one` and `input_two` with all of their possible inputs. This type of test double tests state and behaviour.
