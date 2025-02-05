@@ -6,7 +6,8 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions
 
-- How can you quickly set up a new Python repository that follows best practices?
+- What is the fastest way to set up a new Python repository that suits your needs?
+- How do you make sure this repository follows best practices?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -39,12 +40,21 @@ sure your new projects are never outdated from the start.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
-Inline instructor notes can help inform instructors of timing challenges
-associated with the lessons. They appear in the "Instructor View"
+Using `pipx` to install copier is recommended, so it doesn't pollute the
+global environment of the user, and so they don't have to install it in their
+(not-yet-existant) project space. It's only recommended to let participants
+deviate from this advice and directly `pip install copier` if they (confidently)
+know what they're doing.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-Install [`copier`]:
+A popular tool for using and applying templates is the Python tool [`copier`].
+Using `copier`, you can create a project based on a template made by yourself
+or someone else. Templates can be configured to ask you some questions for
+details that `copier` will then fill in throughout the files to personalize it
+to suit your needs.
+
+The recommended way to install `copier` as a local tool is using `pipx`:
 
 ```bash
 python3 -m pip install --user pipx
@@ -81,7 +91,7 @@ The following shortcut URLs are also supported:
 :::::::::::::::::::::::::::::::::
 
 Notice how you are asked to answer a lot of basic information that you already
-filled in for the SMP.
+filled in for the SMP in the previous episode.
 
 
 ## Challenge 2: Reuse machine readable SMP tool output
@@ -107,7 +117,9 @@ filling in the information you already entered in the SMP. For the other
 questions you weren't asked, the SMP tool has already suggested which set of
 optional features best suit your project.
 
-Due to the limitation how `copier` handles the answer files, you also cannot review choices you made in the SMP. We will show you how to revise choices and add extra features to your code repository below:
+Due to the limitation how `copier` handles the answer files, you also cannot
+review choices you made in the SMP. In the next section, you will see how you
+can add or change features of your code repository.
 
 ## Challenge 3: Add more features to your project
 
