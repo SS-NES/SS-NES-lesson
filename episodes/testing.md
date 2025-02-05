@@ -188,9 +188,13 @@ When the _get_english_headline is updated only the code in the parameterized exa
 For more information on parameterized tests you can read [this how-to guide](https://docs.pytest.org/en/stable/how-to/parametrize.html#pytest-mark-parametrize).
 
 # 2. Testing code in isolation
+You want to test a function without creating having to instantiate all the objects needed in the function.
 
-Sometimes it happens that you want to test a function but in that function a lot of complex objects are used (and those objects in turn need other objects...). One way to deal with this is to add those complex objects as input to the function. You can that use this mock to prevent you having to create all those objects yourself.
-In the code bellow we see the complex class being mocked and then given an implementation for when the method is called. This way we don't need to create `input_one` and `input_two` with all of their possible inputs. This type of test double tests state and behaviour.
+You can do this the following way:
+
+- Create a mock object
+- Add a standard output to the function on the mock you are calling
+- Call with real function with the mock object in the test
 
 ```python
 from unittest.mock import MagicMock
@@ -205,14 +209,14 @@ class Complex:
         "do complex things"
         pass
     
-def function_under_test(my_complex_object_with_multiple_inputs):
-    return my_complex_object_with_multiple_inputs.execute()
+def function1(input_param_complex):
+    return input_param_complex.execute() + 1
 
-def test_function_under_test():
+def test_function1():
     inputs = MagicMock()
     inputs.execute = MagicMock(return_value=3)
-    result = function_under_test(inputs)
-    expected = 3
+    result = function1(inputs)
+    expected = 4
     assert result == expected
     assert inputs.execute.call_count == 1
 ```
