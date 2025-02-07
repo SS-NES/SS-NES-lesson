@@ -117,24 +117,62 @@ filling in the information you already entered in the SMP. For the other
 questions you weren't asked, the SMP tool has already suggested which set of
 optional features best suit your project.
 
-Due to the limitation how `copier` handles the answer files, you also cannot
-review choices you made in the SMP. In the next section, you will see how you
-can add or change features of your code repository.
+Due to the limitation how `copier` handles the answer files, you cannot review
+choices you made in the SMP. In the next section, you will see how you can add
+or change features of your code repository.
 
 ## Challenge 3: Add more features to your project
 
-Use `copier`'s `update` functionality to add extra features to your project.
+Move to your project folder and use `copier`'s `update` functionality to change
+your email address.
+- What do you have to do to your project before you can use `copier update`?
+- Why is this useful/needed?
+- Which questions are you asked this time?
+- How are the changes applied and how can you manage which ones to accept?
 
 :::::::::::::::::::::::: solution
 
+As mentioned, you must first move to your project folder before `copier update`
+can work.
+
 ```bash
-cd path/to/destination  # copier update must run from within your project
+cd path/to/destination
+```
+
+If you then immediately try to update your project, you will run into an error:
+
+```bash
+$ copier update
+```
+
+> Updating is only supported in git-tracked subprojects.
+
+1) So, what you must do is place your project under version control using `git`.
+You can do so with the following commands, assuming you already have your name
+and email configured.
+
+```bash
+git init
+git add .  # add everthing for the first commit
+git commit -m "Initial commit"
+```
+
+2) When updating, `copier` will overwrite any of your local files with new
+information. With your project under version control, you can safely `update`
+your project and easily ignore any updates by restoring the old contents of
+your files.
+
+```bash
 copier update
 ```
 
-:::::::::::::::::::::::::::::::::
+3) Note that you are asked the full set of questions again, but all your
+previous answers are already filled in.
 
-That's all folks!
+4) After completing the questions, you can use `git status` to see which files
+have been changed, and `git diff` to inspect the exact changes.
+
+:::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -146,7 +184,7 @@ That's all folks!
 - Create a new repository using `copier copy gh:nlesc/python-template path/to/destination`
 - Re-use the information from your SMP with the additional
   `--answers-file smp_answers.yaml` argument
-- Add extra features to your project using `copier update`
+- Change answers or extra features to your project using `copier update`
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
