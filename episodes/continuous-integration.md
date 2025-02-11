@@ -108,7 +108,8 @@ You can find more information about containers [here](https://book.the-turing-wa
 Publishing your application as a docker image is advised if the application has a lot of dependencies or if the build process is very complicated.
 If the application is simple with only few dependencies, then creating a docker image probably creates too much overhead.
 Docker is not suitable for publishing a module or library.
-Include a link to a tutorial on creating docker images.
+Here is a tutorial on 
+[how to build docker images](https://book.the-turing-way.org/reproducible-research/renv/renv-containers.html#building-images-and-dockerignore-files)
 Docker is a commercial application that has a community edition that can be used free of charge.
 Usually the communitiy edition provides more than enough functionality.
 [Podman](https://podman.io/) is a free and open source alternative for Docker if you prefer.
