@@ -30,7 +30,7 @@ The main goal is to create awareness of the concept of Continuous Integration an
 
 The [Turing way][1] explains the concept very well.
 
-Continuous Integration should not be confused with [DevOps][2]: CICD is _not_ DevOps, but DevOps effectively requires CICD.
+Continuous Integration should not be confused with [DevOps][2]: CI/CD is _not_ DevOps, but DevOps effectively requires CI/CD.
 DevOps is the concept where a team is responsible for the entire life cycle of a software product or software component.
 From development to deployment to operating and maintaining it in production.
 Continuous Integration and Continuous Delivery and/or Deployment plays a large role in this.
@@ -91,7 +91,7 @@ It also enables the developer to run unit testing in an automated way to discove
 
 ## Relationship between version control and CI/CD
 
-CICD relies on version control.
+CI/CD relies on version control.
 Workflows are usually triggered by events, such as merging to the main branch happening on the verson control repository.
 
 # Containers
