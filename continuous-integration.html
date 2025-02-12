@@ -292,7 +292,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Continuous Integration</h1>
-        <p>Last updated on 2025-01-28 |
+        <p>Last updated on 2025-02-12 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/continuous-integration.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -347,7 +347,7 @@ it.</p>
 <p>The <a href="https://book.the-turing-way.org/reproducible-research/ci/ci-options" title="What is continuous integration?" class="external-link">Turing way</a> explains the
 concept very well.</p>
 <p>Continuous Integration should not be confused with <a href="https://github.com/resources/articles/devops/ci-cd" class="external-link">DevOps</a>:
-CICD is <em>not</em> DevOps, but DevOps effectively requires CICD.
+CI/CD is <em>not</em> DevOps, but DevOps effectively requires CI/CD.
 DevOps is the concept where a team is responsible for the entire life
 cycle of a software product or software component. From development to
 deployment to operating and maintaining it in production. Continuous
@@ -416,7 +416,7 @@ to fix.</li>
 <h1 id="version-control">Version control<a class="anchor" aria-label="anchor" href="#version-control"></a></h1>
 <div class="section level2">
 <h2 id="relationship-between-version-control-and-cicd">Relationship between version control and CI/CD<a class="anchor" aria-label="anchor" href="#relationship-between-version-control-and-cicd"></a></h2>
-<p>CICD relies on version control. Workflows are usually triggered by
+<p>CI/CD relies on version control. Workflows are usually triggered by
 events, such as merging to the main branch happening on the verson
 control repository.</p>
 </div>
@@ -438,6 +438,18 @@ and stable interfaces. Building and distributing containers is generally
 done using <a href="https://www.docker.com" class="external-link">docker</a> but there are
 others such as <a href="https://podman.io/" class="external-link">podman</a> You can find more
 information about containers <a href="https://book.the-turing-way.org/reproducible-research/renv/renv-containers.html" class="external-link">here</a>.</p>
+<p>Publishing your application as a docker image is advised if the
+application has a lot of dependencies or if the build process is very
+complicated. If the application is simple with only few dependencies,
+then creating a docker image probably creates too much overhead. Docker
+is not suitable for publishing a module or library. Here is a tutorial
+on <a href="https://book.the-turing-way.org/reproducible-research/renv/renv-containers.html#building-images-and-dockerignore-files" class="external-link">how
+to build docker images</a> Docker is a commercial application that has a
+community edition that can be used free of charge. Usually the
+communitiy edition provides more than enough functionality. <a href="https://podman.io/" class="external-link">Podman</a> is a free and open source
+alternative for Docker if you prefer.</p>
+<p>The docker website has a <a href="https://docs.docker.com/guides/" class="external-link">list of guides</a> on creating
+docker images for all kinds of purposes.</p>
 </div>
 <div class="section level1">
 <h1 id="pipelines-or-workflows">Pipelines or workflows<a class="anchor" aria-label="anchor" href="#pipelines-or-workflows"></a></h1>
@@ -456,114 +468,38 @@ operate continuous running processes)</li>
 </ul></div>
 <div class="section level2">
 <h2 id="simple-github-workflow">Simple github workflow<a class="anchor" aria-label="anchor" href="#simple-github-workflow"></a></h2>
-<p><a href="https://docs.github.com/en/actions/about-github-actions/understanding-github-actions" class="external-link uri">https://docs.github.com/en/actions/about-github-actions/understanding-github-actions</a></p>
+<p>Github workflows and alternatives from other suppliers enable you to
+trigger certain jobs on certain events. For instance, you can configure
+it to only update the documentation if the only changes pushed to the
+repository are in the documentation. Alternatively you can trigger it to
+build a release package only when merging to the main branch. Check the
+<a href="https://docs.github.com/en/actions/about-github-actions/understanding-github-actions" class="external-link">Understanding
+GitHub Actions guide</a> for all the possibilities.</p>
+<p>Github Pages<a href="https://docs.github.com/en/pages/getting-started-with-github-pages" class="external-link">13</a>
+is a workflow that works out of the box by configuring it on the
+repository’s website<a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site" class="external-link">14</a></p>
 <p>Workflows are defined in the <code>.github/workflows</code> directory
 in a git repository.</p>
 <p>Github has a <a href="https://docs.github.com/en/actions/writing-workflows/quickstart" class="external-link">quick
 start tutorial</a> to get you started with workflows.</p>
+<p>The example below will update the repository’s GitHub Pages site when
+a changes is pushed to the <code>gh-pages</code> branch. As you can see,
+it will only build on pushing to the <code>gh-pages</code> branch.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">YAML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode yaml" tabindex="0"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Run unit tests</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">push</span><span class="kw">]</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="at">    </span><span class="fu">build</span><span class="kw">:</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="at">    </span><span class="fu">strategy</span><span class="kw">:</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="at">        </span><span class="fu">matrix</span><span class="kw">:</span></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="at">            </span><span class="fu">python-version</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">"3.12"</span><span class="kw">]</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Set up Python</span></span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="at">    </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/setup-python@v5</span></span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="at">    </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="at">        </span><span class="fu">python-version</span><span class="kw">:</span><span class="at"> </span><span class="st">'3.x'</span></span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install dependencies</span></span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="fu">    run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>        python -m pip install --upgrade pip</span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>        pip install -r requirements.txt</span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Test with pytest</span></span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="fu">    run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>        pip install pytest pytest-cov</span>
-<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>        pytest tests.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html</span></code></pre>
-</div>
-</div>
-<div class="section level2">
-<h2 id="github-workflow-publishing-a-package-to-pypi">Github workflow publishing a package to PyPi<a class="anchor" aria-label="anchor" href="#github-workflow-publishing-a-package-to-pypi"></a></h2>
-<p>Examples and guides on publishing packages through github workflows
-are available <a href="https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-python" class="external-link">on
-github</a></p>
-<div class="codewrapper sourceCode" id="cb2">
-<h3 class="code-label">YAML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode yaml" tabindex="0"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># This workflow uses actions that are not certified by GitHub.</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co"># They are provided by a third-party and are governed by</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co"># separate terms of service, privacy policy, and support</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># documentation.</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co"># GitHub recommends pinning actions to a commit SHA.</span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co"># To get a newer version, you will need to update the SHA.</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co"># You can also reference a tag or branch, but the action may change without warning.</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Upload Python Package</span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="at">  </span><span class="fu">release</span><span class="kw">:</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="at">    </span><span class="fu">types</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">published</span><span class="kw">]</span></span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="fu">permissions</span><span class="kw">:</span></span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> read</span></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="at">  </span><span class="fu">release-build</span><span class="kw">:</span></span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
-<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/setup-python@v5</span></span>
-<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="at">          </span><span class="fu">python-version</span><span class="kw">:</span><span class="at"> </span><span class="st">"3.x"</span></span>
-<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build release distributions</span></span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>          # NOTE: put your own distribution build steps here.</span>
-<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>          python -m pip install build</span>
-<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a>          python -m build</span>
-<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Upload distributions</span></span>
-<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/upload-artifact@v4</span></span>
-<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a><span class="at">          </span><span class="fu">name</span><span class="kw">:</span><span class="at"> release-dists</span></span>
-<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="at">          </span><span class="fu">path</span><span class="kw">:</span><span class="at"> dist/</span></span>
-<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a></span>
-<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a><span class="at">  </span><span class="fu">pypi-publish</span><span class="kw">:</span></span>
-<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
-<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a></span>
-<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a><span class="at">    </span><span class="fu">needs</span><span class="kw">:</span></span>
-<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> release-build</span></span>
-<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a></span>
-<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a><span class="at">    </span><span class="fu">permissions</span><span class="kw">:</span></span>
-<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a><span class="co">      # IMPORTANT: this permission is mandatory for trusted publishing</span></span>
-<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a><span class="at">      </span><span class="fu">id-token</span><span class="kw">:</span><span class="at"> write</span></span>
-<span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a></span>
-<span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a><span class="co">    # Dedicated environments with protections for publishing are strongly recommended.</span></span>
-<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span></span>
-<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a><span class="at">      </span><span class="fu">name</span><span class="kw">:</span><span class="at"> pypi</span></span>
-<span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a><span class="co">      # OPTIONAL: uncomment and update to include your PyPI project URL in the deployment status:</span></span>
-<span id="cb2-56"><a href="#cb2-56" tabindex="-1"></a><span class="co">      # url: https://pypi.org/p/YOURPROJECT</span></span>
-<span id="cb2-57"><a href="#cb2-57" tabindex="-1"></a></span>
-<span id="cb2-58"><a href="#cb2-58" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb2-59"><a href="#cb2-59" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Retrieve release distributions</span></span>
-<span id="cb2-60"><a href="#cb2-60" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/download-artifact@v4</span></span>
-<span id="cb2-61"><a href="#cb2-61" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb2-62"><a href="#cb2-62" tabindex="-1"></a><span class="at">          </span><span class="fu">name</span><span class="kw">:</span><span class="at"> release-dists</span></span>
-<span id="cb2-63"><a href="#cb2-63" tabindex="-1"></a><span class="at">          </span><span class="fu">path</span><span class="kw">:</span><span class="at"> dist/</span></span>
-<span id="cb2-64"><a href="#cb2-64" tabindex="-1"></a></span>
-<span id="cb2-65"><a href="#cb2-65" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Publish release distributions to PyPI</span></span>
-<span id="cb2-66"><a href="#cb2-66" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> pypa/gh-action-pypi-publish@6f7e8d9c0b1a2c3d4e5f6a7b8c9d0e1f2a3b4c5d</span></span></code></pre>
+<pre class="sourceCode yaml" tabindex="0"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> gh-pages</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="at">  </span><span class="fu">publish-gh-pages</span><span class="kw">:</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"Publish GitHub pages"</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Configure GitHub Pages</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/configure-pages@v5</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -572,7 +508,10 @@ github</a></p>
 <div class="section level2">
 <h2 id="build-containers">Build containers<a class="anchor" aria-label="anchor" href="#build-containers"></a></h2>
 <ul><li>Reproducable, all dependencies, packages included.</li>
-</ul><p><a href="https://github.com/actions/starter-workflows/blob/main/ci/docker-image.yml" class="external-link uri">https://github.com/actions/starter-workflows/blob/main/ci/docker-image.yml</a></p>
+</ul><p>Github[11] and docker[12] have tutorials on building docker container
+images in githhub workflows.</p>
+<p>[11] <a href="https://github.com/actions/starter-workflows/blob/main/ci/docker-image.yml" class="external-link uri">https://github.com/actions/starter-workflows/blob/main/ci/docker-image.yml</a>
+[12] <a href="https://docs.docker.com/guides/gha/" class="external-link uri">https://docs.docker.com/guides/gha/</a></p>
 </div>
 <div class="section level2">
 <h2 id="and-more">And more<a class="anchor" aria-label="anchor" href="#and-more"></a></h2>
@@ -586,24 +525,24 @@ of starter workflows that you can build on.</p>
 <p>First step is to create a Python project on your personal computer.
 There are several tools to help you with this. In this tutorial we’ll be
 using <a href="https://python-poetry.org/docs/basic-usage/" class="external-link">Poetry</a>.</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">poetry</span> new demo-tdcc-nes</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="bu">cd</span> demo-tdcc-nes</span></code></pre>
+</div>
+<p>Next turn the project into a git repository:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">poetry</span> new demo-tdcc-nes</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="bu">cd</span> demo-tdcc-nes</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">git</span> init <span class="at">--initial-branch</span><span class="op">=</span>main</span></code></pre>
 </div>
-<p>Next turn the project into a git repository:</p>
+<p>And add the project’s contents to it:</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">git</span> init <span class="at">--initial-branch</span><span class="op">=</span>main</span></code></pre>
-</div>
-<p>And add the project’s contents to it:</p>
-<div class="codewrapper sourceCode" id="cb5">
-<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">git</span> add .</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Initial commit"</span></span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">git</span> add .</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Initial commit"</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -614,11 +553,11 @@ using <a href="https://python-poetry.org/docs/basic-usage/" class="external-link
 <li>Click “Create repository” at the bottom right. No need to change
 anything else.</li>
 </ol><p>Then push the project with the following commands:</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">git</span> remote add origin git@github.com:neutvd/demo-tddc-nes.git</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin main</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">git</span> remote add origin git@github.com:<span class="op">&lt;</span>yourusername<span class="op">&gt;</span>/demo-tddc-nes.git</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin main</span></code></pre>
 </div>
 <p>Refresh the page in the browser and you will see the contents of your
 project.</p>
@@ -628,18 +567,18 @@ project.</p>
 <p>With a text editor create a file <code>hello.py</code> in the
 <code>demo_tdcc_nes/</code> subfolder in the repository and paste the
 contents below.</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="kw">def</span> hello(thing: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"Hello </span><span class="sc">{</span>thing<span class="sc">}</span><span class="ss">"</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="kw">def</span> hello(thing: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"Hello </span><span class="sc">{</span>thing<span class="sc">}</span><span class="ss">"</span></span></code></pre>
 </div>
 <p>Next, to create a test, create a folder <code>tests</code> in the
 repository top level directory:</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">mkdir</span> tests</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">mkdir</span> tests</span></code></pre>
 </div>
 <p>So, the repository should look like this:</p>
 <pre class="text"><code>.
@@ -652,46 +591,46 @@ repository top level directory:</p>
     └── __init__.py</code></pre>
 <p>Now create a file <code>test_hello.py</code> in the
 <code>tests</code> folder and paste the following content:</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="im">import</span> pytest</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="im">import</span> demo_tdcc_nes</span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="im">import</span> demo_tdcc_nes.hello</span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="at">@pytest.mark.parametrize</span>(<span class="st">'thing, expected'</span>, [(<span class="st">"TDCC-NES"</span>, <span class="st">"Hello TDCC-NES"</span>)])</span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="kw">def</span> test_hello(thing: <span class="bu">str</span>, expected: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>    result <span class="op">=</span> demo_tdcc_nes.hello.hello(thing)</span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>    <span class="cf">assert</span> result <span class="op">==</span> expected</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="im">import</span> pytest</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="im">import</span> demo_tdcc_nes</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="im">import</span> demo_tdcc_nes.hello</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="at">@pytest.mark.parametrize</span>(<span class="st">'thing, expected'</span>, [(<span class="st">"TDCC-NES"</span>, <span class="st">"Hello TDCC-NES"</span>)])</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="kw">def</span> test_hello(thing: <span class="bu">str</span>, expected: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>    result <span class="op">=</span> demo_tdcc_nes.hello.hello(thing)</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>    <span class="cf">assert</span> result <span class="op">==</span> expected</span></code></pre>
 </div>
 <p>install pytest package:</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">pipx</span> install pytest</span></code></pre>
+</div>
+<p>Then run the tests as follows:</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">pipx</span> install pytest</span></code></pre>
-</div>
-<p>Then run the tests as follows:</p>
-<div class="codewrapper sourceCode" id="cb12">
-<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">pytest</span> tests/</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">pytest</span> tests/</span></code></pre>
 </div>
 <p>And examine the result of a passing test:</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">TXT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode txt" tabindex="0"><code class="sourceCode default"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>$ pytest tests/</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>================================================== test session starts ===================================================</span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>platform linux -- Python 3.11.9, pytest-8.3.3, pluggy-1.5.0</span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>rootdir: /home/user/projects/TDCC/demo-tdcc-nes</span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>configfile: pyproject.toml</span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>collected 1 item                                                                                                         </span>
-<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>tests/test_hello.py .                                                                                              [100%]</span>
-<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a></span>
-<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a>=================================================== 1 passed in 0.01s ====================================================</span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>$</span></code></pre>
+<pre class="sourceCode txt" tabindex="0"><code class="sourceCode default"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>$ pytest tests/</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>================================================== test session starts ===================================================</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>platform linux -- Python 3.11.9, pytest-8.3.3, pluggy-1.5.0</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>rootdir: /home/user/projects/TDCC/demo-tdcc-nes</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>configfile: pyproject.toml</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>collected 1 item                                                                                                         </span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>tests/test_hello.py .                                                                                              [100%]</span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>=================================================== 1 passed in 0.01s ====================================================</span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>$</span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -709,17 +648,17 @@ Untracked files:
 
 nothing added to commit but untracked files present (use "git add" to track)</code></pre>
 <p>Stage the changes and commit:</p>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">git</span> add demo_tdcc_nes/hello.py tests/test_hello.py</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Implemented hello with test"</span></span></code></pre>
+</div>
+<p>Next push the changes to github:</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">git</span> add demo_tdcc_nes/hello.py tests/test_hello.py</span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Implemented hello with test"</span></span></code></pre>
-</div>
-<p>Next push the changes to github:</p>
-<div class="codewrapper sourceCode" id="cb16">
-<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -728,10 +667,10 @@ nothing added to commit but untracked files present (use "git add" to track)</co
 package and make it available.</p>
 <p>Create the <code>.github/workflows</code> sub folder in the
 repository:</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .github/workflows</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .github/workflows</span></code></pre>
 </div>
 <p>The repository now should look like this:</p>
 <pre class="text"><code>.
@@ -758,59 +697,59 @@ does. It should have the extension <code>.yml</code> or
 <code>.yaml</code> so it can be identifies as a yaml file.</p>
 <p>Add the content below to the
 <code>.github/workflows/build-demo-tdcc-nes.yml</code> file:</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">YAML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode yaml" tabindex="0"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Upload Python Package</span></span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">push</span><span class="kw">]</span></span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="fu">permissions</span><span class="kw">:</span></span>
-<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> read</span></span>
-<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
-<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="at">  </span><span class="fu">release-build</span><span class="kw">:</span></span>
-<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
-<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a></span>
-<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
-<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a></span>
-<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/setup-python@v5</span></span>
-<span id="cb19-16"><a href="#cb19-16" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb19-17"><a href="#cb19-17" tabindex="-1"></a><span class="at">          </span><span class="fu">python-version</span><span class="kw">:</span><span class="at"> </span><span class="st">"3.12"</span></span>
-<span id="cb19-18"><a href="#cb19-18" tabindex="-1"></a></span>
-<span id="cb19-19"><a href="#cb19-19" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build release distributions</span></span>
-<span id="cb19-20"><a href="#cb19-20" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb19-21"><a href="#cb19-21" tabindex="-1"></a>          # NOTE: put your own distribution build steps here.</span>
-<span id="cb19-22"><a href="#cb19-22" tabindex="-1"></a>          python -m pip install build</span>
-<span id="cb19-23"><a href="#cb19-23" tabindex="-1"></a>          python -m build</span>
-<span id="cb19-24"><a href="#cb19-24" tabindex="-1"></a></span>
-<span id="cb19-25"><a href="#cb19-25" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Upload distributions</span></span>
-<span id="cb19-26"><a href="#cb19-26" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/upload-artifact@v4</span></span>
-<span id="cb19-27"><a href="#cb19-27" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb19-28"><a href="#cb19-28" tabindex="-1"></a><span class="at">          </span><span class="fu">name</span><span class="kw">:</span><span class="at"> release-dists</span></span>
-<span id="cb19-29"><a href="#cb19-29" tabindex="-1"></a><span class="at">          </span><span class="fu">path</span><span class="kw">:</span><span class="at"> dist/</span></span>
-<span id="cb19-30"><a href="#cb19-30" tabindex="-1"></a></span>
-<span id="cb19-31"><a href="#cb19-31" tabindex="-1"></a><span class="at">  </span><span class="fu">pypi-publish</span><span class="kw">:</span></span>
-<span id="cb19-32"><a href="#cb19-32" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
-<span id="cb19-33"><a href="#cb19-33" tabindex="-1"></a></span>
-<span id="cb19-34"><a href="#cb19-34" tabindex="-1"></a><span class="at">    </span><span class="fu">needs</span><span class="kw">:</span></span>
-<span id="cb19-35"><a href="#cb19-35" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> release-build</span></span>
-<span id="cb19-36"><a href="#cb19-36" tabindex="-1"></a></span>
-<span id="cb19-37"><a href="#cb19-37" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb19-38"><a href="#cb19-38" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Retrieve release distributions</span></span>
-<span id="cb19-39"><a href="#cb19-39" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/download-artifact@v4</span></span>
-<span id="cb19-40"><a href="#cb19-40" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb19-41"><a href="#cb19-41" tabindex="-1"></a><span class="at">          </span><span class="fu">name</span><span class="kw">:</span><span class="at"> release-dists</span></span>
-<span id="cb19-42"><a href="#cb19-42" tabindex="-1"></a><span class="at">          </span><span class="fu">path</span><span class="kw">:</span><span class="at"> dist/</span></span></code></pre>
+<pre class="sourceCode yaml" tabindex="0"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Upload Python Package</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">push</span><span class="kw">]</span></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a><span class="fu">permissions</span><span class="kw">:</span></span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> read</span></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a><span class="at">  </span><span class="fu">release-build</span><span class="kw">:</span></span>
+<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
+<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/setup-python@v5</span></span>
+<span id="cb18-16"><a href="#cb18-16" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb18-17"><a href="#cb18-17" tabindex="-1"></a><span class="at">          </span><span class="fu">python-version</span><span class="kw">:</span><span class="at"> </span><span class="st">"3.12"</span></span>
+<span id="cb18-18"><a href="#cb18-18" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build release distributions</span></span>
+<span id="cb18-20"><a href="#cb18-20" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb18-21"><a href="#cb18-21" tabindex="-1"></a>          # NOTE: put your own distribution build steps here.</span>
+<span id="cb18-22"><a href="#cb18-22" tabindex="-1"></a>          python -m pip install build</span>
+<span id="cb18-23"><a href="#cb18-23" tabindex="-1"></a>          python -m build</span>
+<span id="cb18-24"><a href="#cb18-24" tabindex="-1"></a></span>
+<span id="cb18-25"><a href="#cb18-25" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Upload distributions</span></span>
+<span id="cb18-26"><a href="#cb18-26" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/upload-artifact@v4</span></span>
+<span id="cb18-27"><a href="#cb18-27" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb18-28"><a href="#cb18-28" tabindex="-1"></a><span class="at">          </span><span class="fu">name</span><span class="kw">:</span><span class="at"> release-dists</span></span>
+<span id="cb18-29"><a href="#cb18-29" tabindex="-1"></a><span class="at">          </span><span class="fu">path</span><span class="kw">:</span><span class="at"> dist/</span></span>
+<span id="cb18-30"><a href="#cb18-30" tabindex="-1"></a></span>
+<span id="cb18-31"><a href="#cb18-31" tabindex="-1"></a><span class="at">  </span><span class="fu">pypi-publish</span><span class="kw">:</span></span>
+<span id="cb18-32"><a href="#cb18-32" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb18-33"><a href="#cb18-33" tabindex="-1"></a></span>
+<span id="cb18-34"><a href="#cb18-34" tabindex="-1"></a><span class="at">    </span><span class="fu">needs</span><span class="kw">:</span></span>
+<span id="cb18-35"><a href="#cb18-35" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> release-build</span></span>
+<span id="cb18-36"><a href="#cb18-36" tabindex="-1"></a></span>
+<span id="cb18-37"><a href="#cb18-37" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb18-38"><a href="#cb18-38" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Retrieve release distributions</span></span>
+<span id="cb18-39"><a href="#cb18-39" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/download-artifact@v4</span></span>
+<span id="cb18-40"><a href="#cb18-40" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb18-41"><a href="#cb18-41" tabindex="-1"></a><span class="at">          </span><span class="fu">name</span><span class="kw">:</span><span class="at"> release-dists</span></span>
+<span id="cb18-42"><a href="#cb18-42" tabindex="-1"></a><span class="at">          </span><span class="fu">path</span><span class="kw">:</span><span class="at"> dist/</span></span></code></pre>
 </div>
 <p>Stage the change, commit and push:</p>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">git</span> add .github</span>
-<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add packaging workflow"</span></span>
-<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">git</span> add .github</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add packaging workflow"</span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre>
 </div>
 <p>Click on the “Actions” tab in the github web page to see the
 workflow. Then click on the workflow (it has the title of the
@@ -818,6 +757,35 @@ workflow. Then click on the workflow (it has the title of the
 bottom “release-dists” link is provided. Click on that to download the
 package.</p>
 <p>That’s it! Package published!</p>
+</div>
+<div class="section level3">
+<h3 id="step-6-publishing-the-package-to-pypi">Step 6: Publishing the package to PyPi<a class="anchor" aria-label="anchor" href="#step-6-publishing-the-package-to-pypi"></a></h3>
+<p>You can publish the package to PyPi if you have an account at <a href="https://pypi.org/" class="external-link uri">https://pypi.org/</a>. Follow the
+steps in the <a href="https://packaging.python.org/en/latest/tutorials/packaging-projects/" class="external-link">Python
+Packaging User Guid</a> to make the package available through PyPi.</p>
+</div>
+<div class="section level3">
+<h3 id="step-7-additional-workflow-jobs">Step 7: Additional workflow jobs<a class="anchor" aria-label="anchor" href="#step-7-additional-workflow-jobs"></a></h3>
+<p>If you only want to trigger a certain workflow when there is a change
+in, for example, the <code>docs</code> directory, you can add the
+following in a separate wokflow file in the
+<code>.github/workflows</code> directory:</p>
+<div class="codewrapper sourceCode" id="cb20">
+<h3 class="code-label">YAML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode yaml" tabindex="0"><code class="sourceCode yaml"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'docs/**'</span></span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a><span class="at">  </span><span class="fu">publish-gh-pages</span><span class="kw">:</span></span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"Publish GitHub pages"</span></span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Configure GitHub Pages</span></span>
+<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/configure-pages@v5</span></span></code></pre>
+</div>
 </div>
 </div>
 <div class="section level2">
@@ -905,9 +873,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/continuous-integration.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/continuous-integration.html",
-  "dateCreated": "2025-02-04",
-  "dateModified": "2025-01-28",
-  "datePublished": "2025-02-11"
+  "dateCreated": "2025-02-12",
+  "dateModified": "2025-02-12",
+  "datePublished": "2025-02-12"
 }
 
   </script><script>
