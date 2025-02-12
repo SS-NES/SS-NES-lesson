@@ -30,7 +30,7 @@ The main goal is to create awareness of the concept of Continuous Integration an
 
 The [Turing way][1] explains the concept very well.
 
-Continuous Integration should not be confused with [DevOps][2]: CICD is _not_ DevOps, but DevOps effectively requires CICD.
+Continuous Integration should not be confused with [DevOps][2]: CI/CD is _not_ DevOps, but DevOps effectively requires CI/CD.
 DevOps is the concept where a team is responsible for the entire life cycle of a software product or software component.
 From development to deployment to operating and maintaining it in production.
 Continuous Integration and Continuous Delivery and/or Deployment plays a large role in this.
@@ -91,7 +91,7 @@ It also enables the developer to run unit testing in an automated way to discove
 
 ## Relationship between version control and CI/CD
 
-CICD relies on version control.
+CI/CD relies on version control.
 Workflows are usually triggered by events, such as merging to the main branch happening on the verson control repository.
 
 # Containers
@@ -104,6 +104,17 @@ CI/CD is extremely useful for automatically building such container images, as e
 Running applications in containers tends to enforce decoupling from external dependencies and communicating to external services through well defined and stable interfaces.
 Building and distributing containers is generally done using [docker](https://www.docker.com) but there are others such as [podman](https://podman.io/)
 You can find more information about containers [here](https://book.the-turing-way.org/reproducible-research/renv/renv-containers.html).
+
+Publishing your application as a docker image is advised if the application has a lot of dependencies or if the build process is very complicated.
+If the application is simple with only few dependencies, then creating a docker image probably creates too much overhead.
+Docker is not suitable for publishing a module or library.
+Here is a tutorial on 
+[how to build docker images](https://book.the-turing-way.org/reproducible-research/renv/renv-containers.html#building-images-and-dockerignore-files)
+Docker is a commercial application that has a community edition that can be used free of charge.
+Usually the communitiy edition provides more than enough functionality.
+[Podman](https://podman.io/) is a free and open source alternative for Docker if you prefer.
+
+The docker website has a [list of guides](https://docs.docker.com/guides/) on creating docker images for all kinds of purposes.
 
 # Pipelines or workflows
 
@@ -121,112 +132,35 @@ You can find more information about containers [here](https://book.the-turing-wa
 
 ## Simple github workflow
 
-<https://docs.github.com/en/actions/about-github-actions/understanding-github-actions>
+Github workflows and alternatives from other suppliers enable you to trigger certain jobs on certain events.
+For instance, you can configure it to only update the documentation if the only changes pushed to the repository are in the documentation.
+Alternatively you can trigger it to build a release package only when merging to the main branch.
+Check the [Understanding GitHub Actions guide](https://docs.github.com/en/actions/about-github-actions/understanding-github-actions) for all the possibilities.
+
+Github Pages[13] is a workflow that works out of the box by configuring it on the repository's website[14]
+
+[13]: https://docs.github.com/en/pages/getting-started-with-github-pages
+[14]: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
 
 Workflows are defined in the `.github/workflows` directory in a git repository.
 
 Github has a [quick start tutorial](https://docs.github.com/en/actions/writing-workflows/quickstart) to get you started with workflows.
 
-```yaml
-name: Run unit tests
-
-on: [push]
-
-jobs:
-    build:
-    runs-on: ubuntu-latest
-    strategy:
-        matrix:
-            python-version: ["3.12"]
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python
-    uses: actions/setup-python@v5
-    with:
-        python-version: '3.x'
-    - name: Install dependencies
-    run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: Test with pytest
-    run: |
-        pip install pytest pytest-cov
-        pytest tests.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
-```
-
-## Github workflow publishing a package to PyPi
-
-Examples and guides on publishing packages through github workflows are available [on github][8]
-
-[8]: https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-python
+The example below will update the repository's GitHub Pages site when a changes is pushed to the `gh-pages` branch. As you can see, it will only build on pushing to the `gh-pages` branch.
 
 ```yaml
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# GitHub recommends pinning actions to a commit SHA.
-# To get a newer version, you will need to update the SHA.
-# You can also reference a tag or branch, but the action may change without warning.
-
-name: Upload Python Package
-
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - gh-pages
 
-permissions:
-  contents: read
-
-jobs:
-  release-build:
+jobs: 
+  publish-gh-pages:
+    name: "Publish GitHub pages"
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
-
-      - name: Build release distributions
-        run: |
-          # NOTE: put your own distribution build steps here.
-          python -m pip install build
-          python -m build
-
-      - name: Upload distributions
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-dists
-          path: dist/
-
-  pypi-publish:
-    runs-on: ubuntu-latest
-
-    needs:
-      - release-build
-
-    permissions:
-      # IMPORTANT: this permission is mandatory for trusted publishing
-      id-token: write
-
-    # Dedicated environments with protections for publishing are strongly recommended.
-    environment:
-      name: pypi
-      # OPTIONAL: uncomment and update to include your PyPI project URL in the deployment status:
-      # url: https://pypi.org/p/YOURPROJECT
-
-    steps:
-      - name: Retrieve release distributions
-        uses: actions/download-artifact@v4
-        with:
-          name: release-dists
-          path: dist/
-
-      - name: Publish release distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@6f7e8d9c0b1a2c3d4e5f6a7b8c9d0e1f2a3b4c5d
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
 ```
 
 ## Run automated tests
@@ -235,7 +169,10 @@ jobs:
 
 - Reproducable, all dependencies, packages included.
 
-<https://github.com/actions/starter-workflows/blob/main/ci/docker-image.yml>
+Github[11] and docker[12] have tutorials on building docker container images in githhub workflows.
+
+[11] https://github.com/actions/starter-workflows/blob/main/ci/docker-image.yml
+[12] https://docs.docker.com/guides/gha/
 
 ## And more
 
@@ -278,7 +215,7 @@ git commit -m "Initial commit"
 Then push the project with the following commands:
 
 ```sh
-git remote add origin git@github.com:neutvd/demo-tddc-nes.git
+git remote add origin git@github.com:<yourusername>/demo-tddc-nes.git
 git push -u origin main
 ```
 
@@ -481,6 +418,30 @@ A small graph is shown and at the bottom "release-dists" link is provided.
 Click on that to download the package.
 
 That's it! Package published!
+
+### Step 6: Publishing the package to PyPi
+
+You can publish the package to PyPi if you have an account at https://pypi.org/.
+Follow the steps in the [Python Packaging User Guid](https://packaging.python.org/en/latest/tutorials/packaging-projects/) to make the package available through PyPi.
+
+### Step 7: Additional workflow jobs
+
+If you only want to trigger a certain workflow when there is a change in, for example, the `docs` directory, you can add the following in a separate wokflow file in the `.github/workflows` directory:
+
+```yaml
+on:
+  push:
+    paths:
+      - 'docs/**'
+
+jobs: 
+  publish-gh-pages:
+    name: "Publish GitHub pages"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+```
 
 ## Considerations
 
