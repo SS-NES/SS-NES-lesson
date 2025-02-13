@@ -208,7 +208,7 @@ class Complex:
     def execute(self):
         "do complex things"
         pass
-    
+    [config](../../../../move_to_reinstall_pc/.skaffold/config)
 def function1(input_param_complex):
     return input_param_complex.execute() + 1
 
@@ -223,8 +223,14 @@ def test_function1():
 For more information on mocking you can read [this quick guide](https://docs.python.org/3/library/unittest.mock.html#quick-guide).
 
 # 3. How to test database or service connections
+In this example we show how we download data over http, but it can also work with different types of services.
+The network can be unstable or the content of the page can change because for example only the last 30 days of data is available.
 
-When writing code you do not always have the data on your machine. Sometimes you need to download data over http. For this a lot of the time people use the requests library (when you have async code aiohttp is a nice alternative). For your unit test however you don't want to be dependent on the network, because this is unreliable and can have your tests sometimes fail for no reason. One way is to split the http call inside another method and use a fake response when testing that method. The following code calls the german weather opendata platform to get thunderstorm data. The page gets a lot of updates in the data but the format stay's the same. The actual api calls can then be tested inside an integration test and also look at the error handling. More information about integration testing can be found at [the turing way](https://book.the-turing-way.org/reproducible-research/testing/testing-integrationtest).
+## 3.1 Library independent
+To make sure the tests are stable you can do the following:
+- Put the call to the http server inside its own function and return the response as text.
+- In the test mock the real function response with a hardcoded response.
+- Do your test on the stable response with not network issues.
 
 ```python
 import requests
@@ -256,23 +262,33 @@ def test_download_latest_data_konrad3d():
     assert result == expected
 ```
 
-Another way to not do these API calls is by using the [requests_mock library](https://pypi.org/project/requests-mock/) to mock requests API calls. This makes you dependent on another library and still does not show you if things work in reality. It's being used by a lot of people, but personally I prefer fewer dependencies and write integration tests for the integration with external systems.  When you mock this it can give you a false sense of security like happened with the Crowdstrike outage in their testing. If you want to use this an example can be found bellow.
+## 3.2 Library specific
+Another way to get the same result would be to mock the library directly. For the requests library that we use we have the [requests_mock library](https://pypi.org/project/requests-mock/) .
+This way you do not have to split your code for the test. However, option one is preferred and only use this option if the code you have is very hard to split in smaller functions.
+In the example you can see instead of using patch like in 3.1 we use requests_mock.Mocker() to mock the code. 
 
 ```python
 import requests
 import requests_mock
+from bs4 import BeautifulSoup
 
-def get_konrad3d_data(url):
+def  get_latest_file_konrad3d():
+    url = "https://opendata.dwd.de/weather/radar/konrad3d/"
     response = requests.get(url)
-    return response.text
+    overview_page = response.text
+    soup = BeautifulSoup(overview_page, features="html.parser")
+    urls = soup.find_all('a')
+    latest_file = urls[-1].get('href')
+    return latest_file
 
 def test_download_latest_data_konrad3d():
     data = '<html><head><title>Index of /weather/radar/konrad3d/</title></head><body><h1>Index of /weather/radar/konrad3d/</h1><hr><pre><a href="../">../</a><a href="KONRAD3D_20241116T093000.xml">KONRAD3D_20241116T093000.xml</a>                       16-Nov-2024 09:34                3895<a href="KONRAD3D_20241118T092500.xml">KONRAD3D_20241118T092500.xml</a>                       18-Nov-2024 09:30                3938</pre><hr></body></html>'
     url = 'https://opendata.dwd.de/weather/radar/konrad3d/'
+    expected = "KONRAD3D_20241118T092500.xml"
     with requests_mock.Mocker() as m:
         m.get(url, text=data)
-        result = get_konrad3d_data(url)
-    assert result == data
+        result = get_latest_file_konrad3d()
+    assert result == expected
 ```
 
 # 4 Performance testing of functions
