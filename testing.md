@@ -28,7 +28,16 @@ exercises: 0
 
 # Introduction
 
-In this episode we are going to take a look at a few different types of automated testing. We will also see how we can use code coverage the increase our confidence that everything still works when we make a change to the code. There is an assumed base of having worked through the material on [this website](https://coderefinery.github.io/testing/motivation/).
+:::::::::::::::::::::::::::::::::::::::::: spoiler
+
+## Expected Knowledge
+
+- The basic testing skills as can be learned on [this website](https://coderefinery.github.io/testing/motivation/)
+- Know how to use Python decorators. Knowledge on creating and then using them can be found [here](https://realpython.com/primer-on-python-decorators/#python-functions), but creation knowledge is not required!
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+In this episode we are going to take a look at a few different types of automated testing. We will also see how we can use code coverage the increase our confidence that everything still works when we make a change to the code.
 
 
 # 1. Improve testing
@@ -39,9 +48,81 @@ What is code coverage? Code coverage is the percentage of the research / product
 
 ## Add parameterized tests
 
-When writing tests it sometimes happens that you want a lot of tests for the same function. You could write a lot of test functions with the same setup and when calling the function under test some different parameters. A cleaner way where you have to maintain less code afterwards to do this is by using paramterized tests. With this you add the different parameters as inputs to you test function. An example of this looks like this:
+To prevent duplication of code you could use parameterized tests. An example without parameterized tests looks like this:
 
 ```python
+from sourcecode import _get_english_headline
+import pytest
+
+def test_get_english_headline_snow_ice():
+    """test generation of english headline"""
+    onset = "2024-12-09T11:31:14Z"
+    phenomenon=   "snow-ice"
+    expected =  "Monday 9 December: chance of snow/road icing"
+    assert _get_english_headline({"onset": onset, "phenomenon": phenomenon}) == expected
+
+def test_get_english_headline_low_temparature():
+    """test generation of english headline"""
+    onset = "2024-12-09T11:31:14Z"
+    phenomenon= "snow-ice"
+    expected = "Saturday 4 January: chance of cold"
+    assert _get_english_headline({"onset": onset, "phenomenon": phenomenon}) == expected
+```
+
+```R
+library(testthat)
+source("sourcecode.R")  # Assuming _get_english_headline is defined in sourcecode.R
+
+# Test for snow-ice headline
+test_that("test generation of english headline for snow-ice", {
+  onset <- "2024-12-09T11:31:14Z"
+  phenomenon <- "snow-ice"
+  expected <- "Monday 9 December: chance of snow/road icing"
+  
+  result <- _get_english_headline(list(onset = onset, phenomenon = phenomenon))
+  expect_equal(result, expected)
+})
+
+# Test for low temperature headline
+test_that("test generation of english headline for low temperature", {
+  onset <- "2024-12-09T11:31:14Z"
+  phenomenon <- "snow-ice"
+  expected <- "Saturday 4 January: chance of cold"
+  
+  result <- _get_english_headline(list(onset = onset, phenomenon = phenomenon))
+  expect_equal(result, expected)
+})
+```
+
+```julia
+using Test
+include("sourcecode.jl")  # Assuming _get_english_headline is defined in sourcecode.jl
+
+# Test for snow-ice headline
+@testset "test generation of english headline for snow-ice" begin
+    onset = "2024-12-09T11:31:14Z"
+    phenomenon = "snow-ice"
+    expected = "Monday 9 December: chance of snow/road icing"
+    result = _get_english_headline(Dict("onset" => onset, "phenomenon" => phenomenon))
+    @test result == expected
+end
+
+# Test for low-temperature headline
+@testset "test generation of english headline for low-temperature" begin
+    onset = "2025-01-04T00:00:00Z"
+    phenomenon = "low-temperature"
+    expected = "Saturday 4 January: chance of cold"
+    result = _get_english_headline(Dict("onset" => onset, "phenomenon" => phenomenon))
+    @test result == expected
+end
+```
+
+When writing the same example with parameterization it looks like this:
+
+```python
+from sourcecode import _get_english_headline
+import pytest
+
 @pytest.mark.parametrize(
     ("onset", "phenomenon", "expected"),
     [
@@ -56,20 +137,64 @@ When writing tests it sometimes happens that you want a lot of tests for the sam
             "Saturday 4 January: chance of cold",
         ),
     ],
-    ids=["special_case", "normal_case"],
+    ids=["snow_ice", "low_temperature"],
 )
-def test_get_english_headline(onset: str, phenomenon: str, expected: str) -> None:
+def test_get_english_headline(onset, phenomenon, expected):
     """test generation of english headline"""
     assert _get_english_headline({"onset": onset, "phenomenon": phenomenon}) == expected
 ```
 
+```R
+library(testthat)
+source("sourcecode.R")  # Assuming _get_english_headline is defined in sourcecode.R
+
+# Define test cases
+test_cases <- list(
+  list(onset = "2024-12-09T11:31:14Z", phenomenon = "snow-ice", expected = "Monday 9 December: chance of snow/road icing"),
+  list(onset = "2025-01-04T00:00:00Z", phenomenon = "low-temperature", expected = "Saturday 4 January: chance of cold")
+)
+
+# Test function
+test_that("test generation of english headline", {
+  for (case in test_cases) {
+    result <- _get_english_headline(list(onset = case$onset, phenomenon = case$phenomenon))
+    expect_equal(result, case$expected)
+  }
+})
+```
+
+
+```julia
+using Test
+include("sourcecode.jl")  # Assuming _get_english_headline is defined in sourcecode.jl
+
+# Define test cases
+test_cases = [
+    (onset = "2024-12-09T11:31:14Z", phenomenon = "snow-ice", expected = "Monday 9 December: chance of snow/road icing"),
+    (onset = "2025-01-04T00:00:00Z", phenomenon = "low-temperature", expected = "Saturday 4 January: chance of cold")
+]
+
+# Run tests
+@testset "test generation of english headline" begin
+    for case in test_cases
+        result = _get_english_headline(Dict("onset" => case.onset, "phenomenon" => case.phenomenon))
+        @test result == case.expected
+    end
+end
+```
+
 As you can see even the expected result is now an input of the test. We can use the ids parameter to give a test a name. With this name you can also run the test for only one of the ids.
+When the _get_english_headline is updated only the code in the parameterized example should break not multiple functions like in the original.
 For more information on parameterized tests you can read [this how-to guide](https://docs.pytest.org/en/stable/how-to/parametrize.html#pytest-mark-parametrize).
 
-# 2. Testing a unit of software without having to instantiate all the code
+# 2. Testing code in isolation
+You want to test a function without creating having to instantiate all the objects needed in the function.
 
-Sometimes it happens that you want to test a function but in that function a lot of complex objects are used (and those objects in turn need other objects...). One way to deal with this is to add those complex objects as input to the function. You can that use this mock to prevent you having to create all those objects yourself.
-In the code bellow we see the complex class being mocked and then given an implementation for when the method is called. This way we don't need to create `input_one` and `input_two` with all of their possible inputs. This type of test double tests state and behaviour.
+You can do this the following way:
+
+- Create a mock object
+- Add a standard output to the function on the mock you are calling
+- Call with real function with the mock object in the test
 
 ```python
 from unittest.mock import MagicMock
@@ -83,23 +208,29 @@ class Complex:
     def execute(self):
         "do complex things"
         pass
-    
-def function_under_test(my_complex_object_with_multiple_inputs):
-    return my_complex_object_with_multiple_inputs.execute()
+    [config](../../../../move_to_reinstall_pc/.skaffold/config)
+def function1(input_param_complex):
+    return input_param_complex.execute() + 1
 
-def test_function_under_test():
+def test_function1():
     inputs = MagicMock()
     inputs.execute = MagicMock(return_value=3)
-    result = function_under_test(inputs)
-    expected = 3
+    result = function1(inputs)
+    expected = 4
     assert result == expected
     assert inputs.execute.call_count == 1
 ```
 For more information on mocking you can read [this quick guide](https://docs.python.org/3/library/unittest.mock.html#quick-guide).
 
-# 3. Working with external systems during a test
+# 3. How to test database or service connections
+In this example we show how we download data over http, but it can also work with different types of services.
+The network can be unstable or the content of the page can change because for example only the last 30 days of data is available.
 
-When writing code you do not always have the data on your machine. Sometimes you need to download data over http. For this a lot of the time people use the requests library (when you have async code aiohttp is a nice alternative). For your unit test however you don't want to be dependent on the network, because this is unreliable and can have your tests sometimes fail for no reason. One way is to split the http call inside another method and use a fake response when testing that method. The following code calls the german weather opendata platform to get thunderstorm data. The page gets a lot of updates in the data but the format stay's the same. The actual api calls can then be tested inside an integration test and also look at the error handling. More information about integration testing can be found at [the turing way](https://book.the-turing-way.org/reproducible-research/testing/testing-integrationtest).
+## 3.1 Library independent
+To make sure the tests are stable you can do the following:
+- Put the call to the http server inside its own function and return the response as text.
+- In the test mock the real function response with a hardcoded response.
+- Do your test on the stable response with not network issues.
 
 ```python
 import requests
@@ -131,31 +262,45 @@ def test_download_latest_data_konrad3d():
     assert result == expected
 ```
 
-Another way to not do these API calls is by using the [requests_mock library](https://pypi.org/project/requests-mock/) to mock requests API calls. This makes you dependent on another library and still does not show you if things work in reality. It's being used by a lot of people, but personally I prefer fewer dependencies and write integration tests for the integration with external systems.  When you mock this it can give you a false sense of security like happened with the Crowdstrike outage in their testing. If you want to use this an example can be found bellow.
+## 3.2 Library specific
+Another way to get the same result would be to mock the library directly. For the requests library that we use we have the [requests_mock library](https://pypi.org/project/requests-mock/) .
+This way you do not have to split your code for the test. However, option one is preferred and only use this option if the code you have is very hard to split in smaller functions.
+In the example you can see instead of using patch like in 3.1 we use requests_mock.Mocker() to mock the code. 
 
 ```python
 import requests
 import requests_mock
+from bs4 import BeautifulSoup
 
-def get_konrad3d_data(url):
+def  get_latest_file_konrad3d():
+    url = "https://opendata.dwd.de/weather/radar/konrad3d/"
     response = requests.get(url)
-    return response.text
+    overview_page = response.text
+    soup = BeautifulSoup(overview_page, features="html.parser")
+    urls = soup.find_all('a')
+    latest_file = urls[-1].get('href')
+    return latest_file
 
 def test_download_latest_data_konrad3d():
     data = '<html><head><title>Index of /weather/radar/konrad3d/</title></head><body><h1>Index of /weather/radar/konrad3d/</h1><hr><pre><a href="../">../</a><a href="KONRAD3D_20241116T093000.xml">KONRAD3D_20241116T093000.xml</a>                       16-Nov-2024 09:34                3895<a href="KONRAD3D_20241118T092500.xml">KONRAD3D_20241118T092500.xml</a>                       18-Nov-2024 09:30                3938</pre><hr></body></html>'
     url = 'https://opendata.dwd.de/weather/radar/konrad3d/'
+    expected = "KONRAD3D_20241118T092500.xml"
     with requests_mock.Mocker() as m:
         m.get(url, text=data)
-        result = get_konrad3d_data(url)
-    assert result == data
+        result = get_latest_file_konrad3d()
+    assert result == expected
 ```
 
 # 4 Performance testing of functions
 
-There are moments that the performance of you function might matter a lot. You might not want a single function to ever execute slower than x seconds. To test this you could write tests for the specific functions that should stay fast. How this works is that you run a function x amount of times and the max duration of the function should not be higher than the x seconds. A useful library to help with these types of test in python is [pytest-benchmark](https://pytest-benchmark.readthedocs.io/en/stable/pedantic.html). This library can also be used to check if the performance between versions of the code is improved.
+For performance benchmarking of functions we use [pytest-benchmark](https://pytest-benchmark.readthedocs.io/en/stable/pedantic.html).
+It makes the benchmark variable available as fixture which can directly be used inside a function.
+Benchmark runs a function x amount of times and the result has stats which can be used inside the test.
+Pytest-benchmark can be used between 2 versions of the code.
 
 ```python
 import time
+
 def function_to_test(duration=1):
     time.sleep(duration)
     return 123
@@ -164,17 +309,21 @@ def test_my_function(benchmark):
     allowed_speed = 1.000002
     result = benchmark.pedantic(function_to_test, iterations=5)
     assert benchmark.stats.stats.max < allowed_speed
-
     assert result == 123
 ```
 
-This code can be run with the following command: `pytest -v -s the file_this_is_in.py::test_my_function`. It will run the code 5 times and none of the calls is allowed to be slower than the allowed_speed.
+This code can be run with the following command: `pytest -v -s tests.py::test_my_function`. 
+The meaning of the code:
+- "-v" is verbose
+- "-s" no capture
+-  "::" means a function inside a file
 
-When you write API's you can also have performance requirements. For this another type of tool is used. One of the most used tools for this in python is locust. For more information about this tool look you can look at [their documentation](https://docs.locust.io/en/stable/what-is-locust.html).
+It will run the code 5 times and none of the calls is allowed to be slower than the allowed_speed.
+For testing web APIs in Python use [Locust](https://docs.locust.io/en/stable/what-is-locust.html).
 
-# 5. Smoke testing to see if your application is still doing its basic functionality
+# 5. Smoke test, checking requirements
 
-There are moments that you want to start an application but the application has some prerequisites it needs to have before you can say that it's good and allowed to run. For this you can use a smoke tests. For example when you have an application that when a user calls it reads configurations files from a file system the check could be if the files exist at the correct location and the format is as expected. Maybe someone manually moved the files it this could break the whole system. So when the files are not there, there is smoke and thus if it's production we could get a fire. In the example bellow you could see how to test something like this in the same application. However, most of the time those checks would be in another script before you start this script (or if you use Kubernetes an init container).
+In the previous parts we showed testing of parts of the code. Now we look at the whole application. A smoketest ensures that the minimum requirements to have a functioning application are there. In the example bellow there is a test for config files. Its good practise to run tests like the before the main script runs.
 
 ```python
 def config_file_is_found():
@@ -191,17 +340,19 @@ if __name__ == '__main__':
     main()
 ```
 
-More information about smoke tests can be found on [the turing way](https://book.the-turing-way.org/reproducible-research/testing/testing-smoketest).
+However, most of the time those checks would be in another script before you start this script. More information about smoketests can be found on [the turing way](https://book.the-turing-way.org/reproducible-research/testing/testing-smoketest).
 
 # 6. Runtime testing
 
-When software is in production, and you introduce a new path inside the code you might want to run it for a while without actually implementing the behaviour inside that code path. And example for this is that when we implemented an extra validation for our public dataplatform we first added the validation where we allowed everything like before. But we executed the new logic and logged all unexpected things that happened. This gave us a lot of information about what would happen when we would turn the feature on for real. One important thing we found out that inside our network some http requests would only reach their destination after 10+ seconds. The application would already have given the users an error and that's not what we wanted. Because of this information we could add a solution that when we eventually brought our check live no users got an error.
-
-An example of a check like this can be found bellow.
+When real life software in production is constantly running, and new features are added a run time test can be done to see if there is unexpected impact.
+In the example bellow a new function call is added to see if an action is allowed to be executed. The response of this function is ignored add everyone is allowed to do the action like before. When the function would otherwise not allow the action a warning log message is printed so it can be investigated. This way downtime of the service can be prevented by seeing the behaviour of the new code in reality.  
 
 ```python
-def my_new_validation_logic_to_external_api():
-    print("do an external api call")
+import logging
+logger = logging.getLogger("mylogger")
+
+def my_new_login_method():
+    print("do an external api call") # in reality call an api that give True or False back
     return True
 
 def get_observation_data():
@@ -209,7 +360,7 @@ def get_observation_data():
 
 def give_the_user_observation_data():
     try:
-        is_allowed = my_new_validation_logic_to_external_api()
+        is_allowed = my_new_login_method()
         if not is_allowed:
             logger.warning("for user with id x we get not allowed back")
             is_allowed = True
@@ -222,7 +373,7 @@ def give_the_user_observation_data():
         return get_observation_data()
 ```
 
-An example where you would like to do this for a research project might be when with reinforcement learning steps take too long. This can mean that for cost efficiency at that moment it is the most cost-effective. More information on runtime testing can be found at [the turing way](https://book.the-turing-way.org/reproducible-research/testing/testing-runtime).
+An example where you would like to do this for a research project might be when with reinforcement learning steps take too long. This can mean that for cost efficiency at that moment it is the most cost-effective. More information on runtime testing can be found at [the turing way](https://book.the-turing-way.org/reproducible-research/testing/testing-runtime). When writing a new feature, remember think about how to integrate it in the existing system.
 
 # 7. Closing words
 
@@ -232,3 +383,10 @@ In the previous parts we have looked at quite a few different types of test with
 - [the turing way](https://book.the-turing-way.org/reproducible-research/testing)
 - [Behaviour driven development with Gherkin syntax](https://behave.readthedocs.io/en/latest/tutorial/)
 - [testing pyramid vs honeycomb testing](https://engineering.atspotify.com/2018/01/testing-of-microservices/)
+
+
+> ## `Warnings`
+>
+> Tests should never change unless you add a new feature.
+{: .caution}
+
