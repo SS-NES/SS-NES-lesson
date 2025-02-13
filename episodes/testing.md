@@ -344,13 +344,15 @@ However, most of the time those checks would be in another script before you sta
 
 # 6. Runtime testing
 
-When software is in production, and you introduce a new path inside the code you might want to run it for a while without actually implementing the behaviour inside that code path. And example for this is that when we implemented an extra validation for our public dataplatform we first added the validation where we allowed everything like before. But we executed the new logic and logged all unexpected things that happened. This gave us a lot of information about what would happen when we would turn the feature on for real. One important thing we found out that inside our network some http requests would only reach their destination after 10+ seconds. The application would already have given the users an error and that's not what we wanted. Because of this information we could add a solution that when we eventually brought our check live no users got an error.
-
-An example of a check like this can be found bellow.
+When real life software in production is constantly running, and new features are added a run time test can be done to see if there is unexpected impact.
+In the example bellow a new function call is added to see if an action is allowed to be executed. The response of this function is ignored add everyone is allowed to do the action like before. When the function would otherwise not allow the action a warning log message is printed so it can be investigated. This way downtime of the service can be prevented by seeing the behaviour of the new code in reality.  
 
 ```python
-def my_new_validation_logic_to_external_api():
-    print("do an external api call")
+import logging
+logger = logging.getLogger("mylogger")
+
+def my_new_login_method():
+    print("do an external api call") # in reality call an api that give True or False back
     return True
 
 def get_observation_data():
@@ -358,7 +360,7 @@ def get_observation_data():
 
 def give_the_user_observation_data():
     try:
-        is_allowed = my_new_validation_logic_to_external_api()
+        is_allowed = my_new_login_method()
         if not is_allowed:
             logger.warning("for user with id x we get not allowed back")
             is_allowed = True
@@ -371,7 +373,7 @@ def give_the_user_observation_data():
         return get_observation_data()
 ```
 
-An example where you would like to do this for a research project might be when with reinforcement learning steps take too long. This can mean that for cost efficiency at that moment it is the most cost-effective. More information on runtime testing can be found at [the turing way](https://book.the-turing-way.org/reproducible-research/testing/testing-runtime).
+An example where you would like to do this for a research project might be when with reinforcement learning steps take too long. This can mean that for cost efficiency at that moment it is the most cost-effective. More information on runtime testing can be found at [the turing way](https://book.the-turing-way.org/reproducible-research/testing/testing-runtime). When writing a new feature, remember think about how to integrate it in the existing system.
 
 # 7. Closing words
 
