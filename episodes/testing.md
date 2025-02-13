@@ -321,9 +321,9 @@ The meaning of the code:
 It will run the code 5 times and none of the calls is allowed to be slower than the allowed_speed.
 For testing web APIs in Python use [Locust](https://docs.locust.io/en/stable/what-is-locust.html).
 
-# 5. Smoke testing to see if your application is still doing its basic functionality
+# 5. Smoke test, checking requirements
 
-There are moments that you want to start an application but the application has some prerequisites it needs to have before you can say that it's good and allowed to run. For this you can use a smoke tests. For example when you have an application that when a user calls it reads configurations files from a file system the check could be if the files exist at the correct location and the format is as expected. Maybe someone manually moved the files it this could break the whole system. So when the files are not there, there is smoke and thus if it's production we could get a fire. In the example bellow you could see how to test something like this in the same application. However, most of the time those checks would be in another script before you start this script (or if you use Kubernetes an init container).
+In the previous parts we showed testing of parts of the code. Now we look at the whole application. A smoketest ensures that the minimum requirements to have a functioning application are there. In the example bellow there is a test for config files. Its good practise to run tests like the before the main script runs.
 
 ```python
 def config_file_is_found():
@@ -340,7 +340,7 @@ if __name__ == '__main__':
     main()
 ```
 
-More information about smoke tests can be found on [the turing way](https://book.the-turing-way.org/reproducible-research/testing/testing-smoketest).
+However, most of the time those checks would be in another script before you start this script. More information about smoketests can be found on [the turing way](https://book.the-turing-way.org/reproducible-research/testing/testing-smoketest).
 
 # 6. Runtime testing
 
