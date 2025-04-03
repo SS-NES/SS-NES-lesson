@@ -72,8 +72,10 @@ Create a new project based on the Python template by the Netherlands eScience Ce
 
 :::::::::::::::::::::::: solution
 
+
+
 ```bash
-copier copy gh:nlesc/python-template path/to/destination
+copier copy gh:nlesc/python-template path/for/your/project
 ```
 
 :::::::::::::::::::::::::::::::::
@@ -107,7 +109,7 @@ rm -rf path/to/destination
 :::::::::::::::::::::::: solution
 
 ```bash
-copier copy --answers-file smp_answers.yaml gh:nlesc/python-template path/to/destination
+copier copy --answers-file smp_answers.yaml gh:nlesc/python-template path/for/your/project
 ```
 
 :::::::::::::::::::::::::::::::::
@@ -136,7 +138,7 @@ As mentioned, you must first move to your project folder before `copier update`
 can work.
 
 ```bash
-cd path/to/destination
+cd path/for/your/project
 ```
 
 If you then immediately try to update your project, you will run into an error:
@@ -181,7 +183,7 @@ have been changed, and `git diff` to inspect the exact changes.
 ::::::::::::::::::::::::::::::::::::: keypoints
 
 - Use a template to implement best practices for you from the start
-- Create a new repository using `copier copy gh:nlesc/python-template path/to/destination`
+- Create a new repository using `copier copy gh:nlesc/python-template path/for/your/project`
 - Re-use the information from your SMP with the additional
   `--answers-file smp_answers.yaml` argument
 - Change answers or extra features to your project using `copier update`
