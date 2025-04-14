@@ -228,6 +228,12 @@ An example where you would like to do this for a research project might be when 
 
 In the previous parts we have looked at quite a few different types of test with examples. Also, some ways on making the tests more reusable and improving the quality. We would like to end with giving a few more possible resources where you could find information about different types of tests or testing tools:
 
+> ## `Warnings`
+>
+> We can add warnings: "if functionality has not changed, tests should not change" -- this type of comments.
+{: .caution}
+
+
 - [pytest and all types of integrations with it](https://pytest-with-eric.com/)
 - [the turing way](https://book.the-turing-way.org/reproducible-research/testing)
 - [Behaviour driven development with Gherkin syntax](https://behave.readthedocs.io/en/latest/tutorial/)
