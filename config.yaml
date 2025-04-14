@@ -67,6 +67,7 @@ contact: 'team@carpentries.org' # FIXME
 # Order of episodes in your lesson
 episodes: 
 - smp_introduction.md
+- python-template.md
 - testing.md
 - continuous-integration.md
 
